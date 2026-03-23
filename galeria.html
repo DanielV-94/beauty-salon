@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Galería de FC Luxe &amp; Beauty — Conoce nuestros trabajos y resultados." />
+  <title>Galería — FC Luxe & Beauty</title>
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/interior.css" />
+  <link rel="icon" href="rsc/logo.png" type="image/png" />
+  <style>
+    .gallery-page__filters {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 60px
+    }
+
+    .filter-btn {
+      font-family: var(--font-subtitle);
+      font-size: .75rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      padding: 10px 24px;
+      border-radius: 100px;
+      border: 1px solid var(--soft-fawn);
+      background: transparent;
+      color: var(--charcoal);
+      cursor: pointer;
+      transition: all .3s var(--ease-out)
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--soft-fawn);
+      color: var(--charcoal)
+    }
+
+    .gallery-page__grid {
+      columns: 3;
+      gap: 20px;
+      column-gap: 20px
+    }
+
+    .gallery-page__grid .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px
+    }
+
+    .gallery-page__grid .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform .8s var(--ease-out)
+    }
+
+    .gallery-page__grid .gallery-item:hover img {
+      transform: scale(1.06)
+    }
+
+    .gallery-page__grid .gallery-item__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(220, 144, 174, .5) 100%);
+      opacity: 0;
+      transition: opacity .4s;
+      display: flex;
+      align-items: flex-end;
+      padding: 20px
+    }
+
+    .gallery-page__grid .gallery-item:hover .gallery-item__overlay {
+      opacity: 1
+    }
+
+    .gallery-item__label {
+      font-family: var(--font-subtitle);
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #fff
+    }
+
+    @media(max-width:768px) {
+      .gallery-page__grid {
+        columns: 2
+      }
+    }
+
+    @media(max-width:480px) {
+      .gallery-page__grid {
+        columns: 1
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <nav class="navbar">
+    <a href="index.html"><img src="rsc/logo.png" alt="FC Luxe &amp; Beauty" class="navbar__logo" /></a>
+    <div class="navbar__right">
+      <a href="https://wa.me/1234567890?text=Hola!%20Quiero%20agendar%20una%20cita" target="_blank" rel="noopener"
+        class="navbar__cta">Agendar cita</a>
+      <button class="navbar__menu-btn" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="nav-overlay" role="dialog" aria-modal="true">
+    <div class="nav-overlay__inner">
+      <nav class="nav-overlay__links">
+        <div class="nav-overlay__item"><a href="index.html" class="nav-overlay__link">Home</a></div>
+        <div class="nav-overlay__item"><a href="servicios.html"
+            class="nav-overlay__link nav-overlay__sub-toggle">Servicios</a>
+          <div class="nav-overlay__sub open"><a href="servicios/manicure.html">Manicure</a><a
+              href="servicios/pedicure.html">Pedicure</a><a href="servicios/extensiones.html">Extensiones</a><a
+              href="servicios/masajes.html">Masajes</a><a href="servicios/faciales.html">Faciales</a><a
+              href="servicios/alisado.html">Alisado</a><a href="servicios/pestanas.html">Pestañas</a><a
+              href="servicios/colorimetria.html">Colorimetría</a></div>
+        </div>
+        <div class="nav-overlay__item"><a href="historia.html" class="nav-overlay__link">Nuestra Historia</a></div>
+        <div class="nav-overlay__item"><a href="galeria.html" class="nav-overlay__link">Galería</a></div>
+        <div class="nav-overlay__item"><a href="ubicacion.html" class="nav-overlay__link">Ubicación</a></div>
+        <div class="nav-overlay__item"><a href="contacto.html" class="nav-overlay__link">Contacto</a></div>
+      </nav>
+      <div class="nav-overlay__deco"><img src="rsc/svg/05.svg" alt="" aria-hidden="true" />
+        <div class="nav-overlay__social"><a href="#" target="_blank" rel="noopener">Instagram</a><a href="#"
+            target="_blank" rel="noopener">Facebook</a><a href="#" target="_blank" rel="noopener">TikTok</a></div>
+      </div>
+    </div><span class="nav-overlay__lang">ES</span>
+  </div>
+
+  <header class="page-hero reveal-scale">
+    <div class="page-hero__bg"><img src="rsc/png/clientas(1).png" alt="" aria-hidden="true" />
+      <div class="page-hero__overlay"></div>
+    </div>
+    <div class="container page-hero__content">
+      <span class="section-label">Nuestros trabajos</span>
+      <h1>Galería de <em class="gold-accent">Belleza</em></h1>
+      <p>Cada foto cuenta una historia de transformación.</p>
+    </div>
+  </header>
+
+  <section class="gallery-page" style="padding:100px 0;">
+    <div class="container">
+      <div class="gallery-page__filters reveal">
+        <button class="filter-btn active" data-filter="all">Todo</button>
+        <button class="filter-btn" data-filter="uñas">Uñas</button>
+        <button class="filter-btn" data-filter="cabello">Cabello</button>
+        <button class="filter-btn" data-filter="piel">Piel &amp; Rostro</button>
+        <button class="filter-btn" data-filter="lashes">Pestañas</button>
+      </div>
+
+      <div class="gallery-page__grid reveal">
+        <div class="gallery-item" data-category="uñas">
+          <img src="rsc/png/modelo1.png" alt="Manicure artístico FC Luxe" />
+          <div class="gallery-item__overlay"><span class="gallery-item__label">Manicure</span></div>
+        </div>
+        <div class="gallery-item" data-category="cabello">
+          <img src="rsc/png/extensiones(1).jpeg" alt="Extensiones de cabello" />
+          <div class="gallery-item__overlay"><span class="gallery-item__label">Extensiones</span></div>
+        </div>
+        <div class="gallery-item" data-category="piel">
+          <img src="rsc/png/clientas(1).png" alt="Tratamiento facial" />
+          <div class="gallery-item__overlay"><span class="gallery-item__label">Facial</span></div>
+        </div>
+        <div class="gallery-item" data-category="lashes">
+          <img src="rsc/png/clientas(2).png" alt="Pestañas volumen ruso" />
+          <div class="gallery-item__overlay"><span class="gallery-item__label">Pestañas</span></div>
+        </div>
+        <div class="gallery-item" data-category="cabello">
+          <img src="rsc/png/extensiones(2).jpeg" alt="Alisado brasileño" />
+          <div class="gallery-item__overlay"><span class="gallery-item__label">Alisado</span></div>
+        </div>
+        <div class="gallery-item" data-category="piel">
+          <img src="rsc/png/clientas(3).png" alt="Colorimetría profesional" />
+          <div class="gallery-item__overlay"><span class="gallery-item__label">Colorimetría</span></div>
+        </div>
+        <div class="gallery-item" data-category="uñas">
+          <img src="rsc/png/models.png" alt="Pedicure spa" />
+          <div class="gallery-item__overlay"><span class="gallery-item__label">Pedicure</span></div>
+        </div>
+        <div class="gallery-item" data-category="piel">
+          <img src="rsc/png/golden.png" alt="Masajes relajantes" style="object-fit:cover;height:360px" />
+          <div class="gallery-item__overlay"><span class="gallery-item__label">Masajes</span></div>
+        </div>
+        <div class="gallery-item" data-category="cabello">
+          <img src="rsc/png/modelo grande.png" alt="FC Luxe &amp; Beauty — Transformación" />
+          <div class="gallery-item__overlay"><span class="gallery-item__label">Look completo</span></div>
+        </div>
+        <div class="gallery-item" data-category="lashes">
+          <img src="rsc/png/clientas(4).png" alt="Tratamiento de pestañas" />
+          <div class="gallery-item__overlay"><span class="gallery-item__label">Pestañas</span></div>
+        </div>
+        <div class="gallery-item" data-category="piel">
+          <img src="rsc/png/clientas(5).png" alt="Clienta satisfecha" />
+          <div class="gallery-item__overlay"><span class="gallery-item__label">Satisfacción</span></div>
+        </div>
+        <div class="gallery-item" data-category="uñas">
+          <img src="rsc/png/instalacion (1).jpeg" alt="Instalaciones FC Luxe" />
+          <div class="gallery-item__overlay"><span class="gallery-item__label">Nuestro espacio</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="interior-cta reveal">
+    <div class="container interior-cta__content">
+      <h2>¿Lista para tu <em class="gold-accent">transformación</em>?</h2>
+      <p style="color:var(--mid-gray);max-width:400px;text-align:center;margin-top:8px;">Reserva ahora y deja que
+        nuestra magia hable por sí sola.</p>
+      <a href="https://wa.me/1234567890?text=Hola!%20Quiero%20agendar%20una%20cita" target="_blank" rel="noopener"
+        class="btn btn--pink mt-md">Agendar cita</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand"><img src="rsc/logo.png" alt="FC Luxe &amp; Beauty" class="footer__logo" />
+          <p class="footer__desc">Un espacio de lujo dedicado a realzar tu belleza natural.</p>
+        </div>
+        <div class="footer__col">
+          <h4>Servicios</h4>
+          <ul>
+            <li><a href="servicios/manicure.html">Manicure</a></li>
+            <li><a href="servicios/pedicure.html">Pedicure</a></li>
+            <li><a href="servicios/extensiones.html">Extensiones</a></li>
+            <li><a href="servicios/masajes.html">Masajes</a></li>
+            <li><a href="servicios/faciales.html">Faciales</a></li>
+            <li><a href="servicios/alisado.html">Alisado</a></li>
+            <li><a href="servicios/pestanas.html">Pestañas</a></li>
+            <li><a href="servicios/colorimetria.html">Colorimetría</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Navegación</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="historia.html">Nuestra Historia</a></li>
+            <li><a href="galeria.html">Galería</a></li>
+            <li><a href="ubicacion.html">Ubicación</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="https://wa.me/1234567890" target="_blank" rel="noopener">WhatsApp</a></li>
+            <li><a href="mailto:hola@fcluxebeauty.com">hola@fcluxebeauty.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2026 FC Luxe &amp; Beauty. Todos los derechos reservados.</p>
+        <div class="footer__social"><a href="#" target="_blank" rel="noopener">Instagram</a><a href="#" target="_blank"
+            rel="noopener">Facebook</a><a href="#" target="_blank" rel="noopener">TikTok</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/TextPlugin.min.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Filtro de galería
+    document.addEventListener('DOMContentLoaded', () => {
+      const btns = document.querySelectorAll('.filter-btn');
+      const items = document.querySelectorAll('.gallery-item');
+      btns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          btns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const filter = btn.dataset.filter;
+          items.forEach(item => {
+            const show = filter === 'all' || item.dataset.category === filter;
+            gsap.to(item, { opacity: show ? 1 : 0.15, scale: show ? 1 : 0.96, duration: 0.4, ease: 'power2.out' });
+          });
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

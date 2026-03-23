@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FC Luxe & Beauty — Todos nuestros servicios de belleza premium." />
+  <title>Servicios — FC Luxe & Beauty</title>
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/interior.css" />
+  <link rel="icon" href="rsc/logo.png" type="image/png" />
+</head>
+
+<body>
+
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" aria-label="Navegación principal">
+    <a href="index.html" class="navbar__logo-wrap" aria-label="Inicio">
+      <img src="rsc/logo.png" alt="FC Luxe &amp; Beauty" class="navbar__logo" />
+    </a>
+    <div class="navbar__right">
+      <a href="https://wa.me/1234567890?text=Hola!%20Quiero%20agendar%20una%20cita" target="_blank" rel="noopener"
+        class="navbar__cta">Agendar cita</a>
+      <button class="navbar__menu-btn" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- OVERLAY -->
+  <div class="nav-overlay" role="dialog" aria-modal="true">
+    <div class="nav-overlay__inner">
+      <nav class="nav-overlay__links">
+        <div class="nav-overlay__item"><a href="index.html" class="nav-overlay__link">Home</a></div>
+        <div class="nav-overlay__item">
+          <a href="servicios.html" class="nav-overlay__link nav-overlay__sub-toggle">Servicios</a>
+          <div class="nav-overlay__sub open">
+            <a href="servicios/manicure.html">Manicure</a>
+            <a href="servicios/pedicure.html">Pedicure</a>
+            <a href="servicios/extensiones.html">Extensiones de Cabello</a>
+            <a href="servicios/masajes.html">Masajes</a>
+            <a href="servicios/faciales.html">Faciales</a>
+            <a href="servicios/alisado.html">Alisado</a>
+            <a href="servicios/pestanas.html">Pestañas</a>
+            <a href="servicios/colorimetria.html">Colorimetría</a>
+          </div>
+        </div>
+        <div class="nav-overlay__item"><a href="historia.html" class="nav-overlay__link">Nuestra Historia</a></div>
+        <div class="nav-overlay__item"><a href="galeria.html" class="nav-overlay__link">Galería</a></div>
+        <div class="nav-overlay__item"><a href="ubicacion.html" class="nav-overlay__link">Ubicación</a></div>
+        <div class="nav-overlay__item"><a href="contacto.html" class="nav-overlay__link">Contacto</a></div>
+      </nav>
+      <div class="nav-overlay__deco">
+        <img src="rsc/svg/05.svg" alt="" aria-hidden="true" />
+        <div class="nav-overlay__social">
+          <span
+            style="font-family:'WanoQuin',sans-serif;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(250,248,245,0.3);margin-bottom:6px;">Síguenos</span>
+          <a href="#" target="_blank" rel="noopener">Instagram</a>
+          <a href="#" target="_blank" rel="noopener">Facebook</a>
+          <a href="#" target="_blank" rel="noopener">TikTok</a>
+        </div>
+      </div>
+    </div>
+    <span class="nav-overlay__lang">ES</span>
+  </div>
+
+  <!-- HERO INTERIOR -->
+  <header class="page-hero reveal-scale">
+    <div class="page-hero__bg">
+      <img src="rsc/png/modelo grande.png" alt="" aria-hidden="true" />
+      <div class="page-hero__overlay"></div>
+    </div>
+    <div class="container page-hero__content">
+      <span class="section-label">Lo que ofrecemos</span>
+      <h1>Nuestros<br /><em class="gold-accent">Servicios</em></h1>
+      <p>Cada tratamiento diseñado con precisión para realzar tu belleza natural.</p>
+    </div>
+  </header>
+
+  <!-- GRID DE SERVICIOS -->
+  <section class="services-grid-section">
+    <div class="container">
+      <div class="services-full-grid stagger-group">
+
+        <a href="servicios/manicure.html" class="service-card stagger-item">
+          <div class="service-card__img">
+            <img src="rsc/png/modelo1.png" alt="Manicure" loading="lazy" />
+          </div>
+          <div class="service-card__body">
+            <span class="service-card__num">01</span>
+            <h3>Manicure</h3>
+            <p>Uñas perfectas con acabados duraderos que hablan por sí solos.</p>
+            <span class="btn btn--ghost">Ver más <span class="btn__arrow" aria-hidden="true"></span></span>
+          </div>
+        </a>
+
+        <a href="servicios/pedicure.html" class="service-card stagger-item">
+          <div class="service-card__img">
+            <img src="rsc/png/models.png" alt="Pedicure" loading="lazy" />
+          </div>
+          <div class="service-card__body">
+            <span class="service-card__num">02</span>
+            <h3>Pedicure</h3>
+            <p>Un ritual de bienestar para tus pies que dura semanas.</p>
+            <span class="btn btn--ghost">Ver más <span class="btn__arrow" aria-hidden="true"></span></span>
+          </div>
+        </a>
+
+        <a href="servicios/extensiones.html" class="service-card stagger-item">
+          <div class="service-card__img">
+            <img src="rsc/png/extensiones (1).jpeg" alt="Extensiones de cabello" loading="lazy" />
+          </div>
+          <div class="service-card__body">
+            <span class="service-card__num">03</span>
+            <h3>Extensiones de Cabello</h3>
+            <p>Volumen y largo naturales aplicados con máxima precisión.</p>
+            <span class="btn btn--ghost">Ver más <span class="btn__arrow" aria-hidden="true"></span></span>
+          </div>
+        </a>
+
+        <a href="servicios/masajes.html" class="service-card stagger-item">
+          <div class="service-card__img">
+            <img src="rsc/png/golden.png" alt="Masajes" loading="lazy" />
+          </div>
+          <div class="service-card__body">
+            <span class="service-card__num">04</span>
+            <h3>Masajes</h3>
+            <p>Rituales que liberan tensión y restauran el equilibrio total.</p>
+            <span class="btn btn--ghost">Ver más <span class="btn__arrow" aria-hidden="true"></span></span>
+          </div>
+        </a>
+
+        <a href="servicios/faciales.html" class="service-card stagger-item">
+          <div class="service-card__img">
+            <img src="rsc/png/clientas (1).png" alt="Faciales" loading="lazy" />
+          </div>
+          <div class="service-card__body">
+            <span class="service-card__num">05</span>
+            <h3>Faciales</h3>
+            <p>Piel luminosa con tratamientos de última generación.</p>
+            <span class="btn btn--ghost">Ver más <span class="btn__arrow" aria-hidden="true"></span></span>
+          </div>
+        </a>
+
+        <a href="servicios/alisado.html" class="service-card stagger-item">
+          <div class="service-card__img">
+            <img src="rsc/png/extensiones (2).jpeg" alt="Alisado" loading="lazy" />
+          </div>
+          <div class="service-card__body">
+            <span class="service-card__num">06</span>
+            <h3>Alisado</h3>
+            <p>Cabello liso, suave y brillante que cuida tu salud capilar.</p>
+            <span class="btn btn--ghost">Ver más <span class="btn__arrow" aria-hidden="true"></span></span>
+          </div>
+        </a>
+
+        <a href="servicios/pestanas.html" class="service-card stagger-item">
+          <div class="service-card__img">
+            <img src="rsc/png/clientas (2).png" alt="Pestañas" loading="lazy" />
+          </div>
+          <div class="service-card__body">
+            <span class="service-card__num">07</span>
+            <h3>Pestañas</h3>
+            <p>Una mirada inolvidable con extensiones aplicadas con arte.</p>
+            <span class="btn btn--ghost">Ver más <span class="btn__arrow" aria-hidden="true"></span></span>
+          </div>
+        </a>
+
+        <a href="servicios/colorimetria.html" class="service-card stagger-item">
+          <div class="service-card__img">
+            <img src="rsc/png/clientas (3).png" alt="Colorimetría" loading="lazy" />
+          </div>
+          <div class="service-card__body">
+            <span class="service-card__num">08</span>
+            <h3>Colorimetría</h3>
+            <p>Colores que expresan tu personalidad única con técnica experta.</p>
+            <span class="btn btn--ghost">Ver más <span class="btn__arrow" aria-hidden="true"></span></span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA AGENDAR -->
+  <section class="interior-cta reveal">
+    <div class="container interior-cta__content">
+      <h2>¿Lista para <em class="gold-accent">tu transformación</em>?</h2>
+      <a href="https://wa.me/1234567890?text=Hola!%20Quiero%20agendar%20una%20cita" target="_blank" rel="noopener"
+        class="btn btn--pink mt-md">Agendar cita ahora</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="rsc/logo.png" alt="FC Luxe &amp; Beauty" class="footer__logo" />
+          <p class="footer__desc">Un espacio de lujo dedicado a realzar tu belleza natural.</p>
+        </div>
+        <div class="footer__col">
+          <h4>Servicios</h4>
+          <ul>
+            <li><a href="servicios/manicure.html">Manicure</a></li>
+            <li><a href="servicios/pedicure.html">Pedicure</a></li>
+            <li><a href="servicios/extensiones.html">Extensiones</a></li>
+            <li><a href="servicios/masajes.html">Masajes</a></li>
+            <li><a href="servicios/faciales.html">Faciales</a></li>
+            <li><a href="servicios/alisado.html">Alisado</a></li>
+            <li><a href="servicios/pestanas.html">Pestañas</a></li>
+            <li><a href="servicios/colorimetria.html">Colorimetría</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Navegación</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="historia.html">Nuestra Historia</a></li>
+            <li><a href="galeria.html">Galería</a></li>
+            <li><a href="ubicacion.html">Ubicación</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="https://wa.me/1234567890" target="_blank" rel="noopener">WhatsApp</a></li>
+            <li><a href="mailto:hola@fcluxebeauty.com">hola@fcluxebeauty.com</a></li>
+            <li><a href="ubicacion.html">Tu ciudad, País</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2026 FC Luxe &amp; Beauty. Todos los derechos reservados.</p>
+        <div class="footer__social">
+          <a href="#" target="_blank" rel="noopener">Instagram</a>
+          <a href="#" target="_blank" rel="noopener">Facebook</a>
+          <a href="#" target="_blank" rel="noopener">TikTok</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/TextPlugin.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
