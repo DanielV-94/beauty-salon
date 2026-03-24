@@ -7,6 +7,147 @@
 // ─── GSAP SETUP ───────────────────────────────────────────────────────────────
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
+// ─── SMOOTH SCROLL INERCIAL (Luxury Lerp) ────────────────────────────────────
+// Técnica: página real con overflow hidden, un wrapper translate3d que sigue
+// la posición nativa con interpolación suave (lerp). ScrollTrigger se sincroniza
+// leyendo la posición virtual. Resultado: scroll casi imperceptiblemente fluido.
+(function initSmoothScroll() {
+  // Solo desktop — en móvil el scroll nativo es más suave
+  const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+  if (isMobile) return;
+
+  // Crear wrapper si no existe
+  let wrapper = document.querySelector(".smooth-wrapper");
+  if (!wrapper) {
+    wrapper = document.createElement("div");
+    wrapper.className = "smooth-wrapper";
+    // Mover todos los hijos de body dentro del wrapper
+    while (document.body.firstChild) {
+      wrapper.appendChild(document.body.firstChild);
+    }
+    document.body.appendChild(wrapper);
+  }
+
+  // Estilos necesarios
+  Object.assign(document.documentElement.style, {
+    overflow: "hidden",
+    height: "100%",
+  });
+  Object.assign(document.body.style, {
+    overflow: "hidden",
+    height: "100%",
+    position: "fixed",
+    width: "100%",
+  });
+  Object.assign(wrapper.style, {
+    willChange: "transform",
+    position: "fixed",
+    top: "0",
+    left: "0",
+    width: "100%",
+  });
+
+  let currentY = 0; // posición suavizada actual
+  let targetY = 0; // posición real del scroll nativo virtual
+  let maxScroll = 0;
+
+  // Scroll virtual: rueda del ratón acumula en targetY
+  window.addEventListener(
+    "wheel",
+    (e) => {
+      e.preventDefault();
+      if (window._smoothScrollLocked) return;
+      targetY = Math.max(0, Math.min(targetY + e.deltaY * 1.0, maxScroll));
+    },
+    { passive: false },
+  );
+
+  // Soporte teclas: flecha abajo/arriba, espacio, Av Pág / Re Pág, Inicio/Fin
+  window.addEventListener("keydown", (e) => {
+    if (window._smoothScrollLocked) return;
+    const step = window.innerHeight * 0.85;
+    const map = {
+      ArrowDown: 120,
+      ArrowUp: -120,
+      " ": step,
+      Shift: 0,
+      PageDown: step,
+      PageUp: -step,
+      Home: -999999,
+      End: 999999,
+    };
+    // Espacio con Shift = subir
+    const delta = e.key === " " && e.shiftKey ? -step : (map[e.key] ?? null);
+    if (delta !== null) {
+      e.preventDefault();
+      targetY = Math.max(0, Math.min(targetY + delta, maxScroll));
+    }
+  });
+
+  function updateHeight() {
+    maxScroll = wrapper.offsetHeight - window.innerHeight;
+  }
+
+  // Sincronizar ScrollTrigger con nuestro scroll virtual
+  ScrollTrigger.scrollerProxy(wrapper, {
+    scrollTop(value) {
+      if (arguments.length) {
+        currentY = value;
+        targetY = value;
+      }
+      return currentY;
+    },
+    getBoundingClientRect() {
+      return {
+        top: 0,
+        left: 0,
+        width: window.innerWidth,
+        height: window.innerHeight,
+      };
+    },
+    pinType: "transform",
+  });
+
+  ScrollTrigger.defaults({ scroller: wrapper });
+
+  // Tick principal: lerp ultra-suave (factor 0.07 = muy lento e inercial)
+  const LERP = 0.07;
+  let rafId;
+  function tick() {
+    currentY += (targetY - currentY) * LERP;
+
+    // Snap a 0 cuando está muy cerca (evita micro-drift)
+    if (Math.abs(targetY - currentY) < 0.05) currentY = targetY;
+
+    wrapper.style.transform = `translate3d(0, ${-currentY}px, 0)`;
+
+    // Notificar a ScrollTrigger la posición actual
+    ScrollTrigger.update();
+
+    rafId = requestAnimationFrame(tick);
+  }
+  tick();
+
+  // Actualizar alturas al resize
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      updateHeight();
+      ScrollTrigger.refresh();
+    }, 150);
+  });
+
+  // Observer para cambios de contenido dinámico
+  const ro = new ResizeObserver(() => {
+    updateHeight();
+    ScrollTrigger.refresh();
+  });
+  ro.observe(wrapper);
+
+  updateHeight();
+})();
+
 // ─── PAGE LOADER ──────────────────────────────────────────────────────────────
 function initLoader() {
   const loader = document.querySelector(".page-loader");
@@ -18,7 +159,11 @@ function initLoader() {
   const hero = document.querySelector(".hero");
   if (!loader) return;
 
-  document.body.style.overflow = "hidden";
+  // Bloquear scroll durante el loader (compatible con smooth scroll)
+  // El smooth scroll ya fija el body; solo necesitamos bloquear el targetY
+  const smoothWrapper = document.querySelector(".smooth-wrapper");
+  let scrollLocked = true;
+  window._smoothScrollLocked = true;
 
   // Hero empieza invisible; aparece cuando las puertas se abran
   if (hero) gsap.set(hero, { opacity: 0 });
@@ -26,7 +171,7 @@ function initLoader() {
   const tl = gsap.timeline({
     onComplete: () => {
       loader.style.display = "none";
-      document.body.style.overflow = "";
+      window._smoothScrollLocked = false;
       initPageAnimations();
     },
   });
@@ -173,11 +318,12 @@ function initNavbar() {
   // Scroll progress bar
   const progressBar = document.querySelector(".scroll-progress");
   if (progressBar) {
+    const scroller = document.querySelector(".smooth-wrapper") || document.body;
     gsap.to(progressBar, {
       width: "100%",
       ease: "none",
       scrollTrigger: {
-        trigger: document.body,
+        trigger: scroller,
         start: "top top",
         end: "bottom bottom",
         scrub: 0.3,

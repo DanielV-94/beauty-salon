@@ -80,8 +80,9 @@
 }
 
 html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 80px; /* compensa la navbar fija al anclar secciones */
+  /* scroll-behavior se desactiva en desktop porque el smooth scroll JS lo maneja */
+  scroll-behavior: auto;
+  scroll-padding-top: 80px;
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
 }
@@ -93,6 +94,39 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   cursor: none; /* custom cursor */
+}
+
+/* ── SMOOTH SCROLL WRAPPER (desktop) ───────────────────────────────────────── */
+/* El JS crea .smooth-wrapper y fija el body. En móvil no se aplica. */
+.smooth-wrapper {
+  /* En desktop el JS lo gestiona; en móvil queda como bloque normal */
+  will-change: transform;
+  background-color: var(--off-white);
+}
+
+/* Cursor personalizado dentro del wrapper */
+.smooth-wrapper .cursor-dot,
+.smooth-wrapper .cursor-ring {
+  position: fixed;
+}
+
+/* En móvil: scroll nativo normal */
+@media (max-width: 768px) {
+  html {
+    scroll-behavior: smooth;
+    overflow: auto !important;
+    height: auto !important;
+  }
+  body {
+    overflow: auto !important;
+    position: static !important;
+    height: auto !important;
+  }
+  .smooth-wrapper {
+    position: static !important;
+    transform: none !important;
+    width: 100% !important;
+  }
 }
 
 img,
