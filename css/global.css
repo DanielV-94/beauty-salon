@@ -170,6 +170,32 @@ button {
   background: rgba(220, 144, 174, 0.08);
 }
 
+/* Cursor modo 'ver' sobre imágenes */
+.cursor-ring.hover--view {
+  width: 72px;
+  height: 72px;
+  background: rgba(220, 144, 174, 0.12);
+  border-color: rgba(220, 188, 136, 0.7);
+}
+
+.cursor-ring.hover--view::after {
+  content: "Ver";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-subtitle);
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  white-space: nowrap;
+}
+
+.cursor-dot.dot--hidden {
+  opacity: 0;
+}
+
 /* ---- NAVBAR ---- */
 .navbar {
   position: fixed;
@@ -195,12 +221,38 @@ button {
   box-shadow: 0 1px 30px rgba(0, 0, 0, 0.06);
 }
 
+/* Navbar transparente sobre hero oscuro */
+.navbar--dark .navbar__logo {
+  filter: brightness(10);
+}
+
+.navbar--dark .navbar__cta {
+  color: rgba(255, 255, 255, 0.85);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.navbar--dark .navbar__cta:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.7);
+  color: #fff;
+}
+
+.navbar--dark .navbar__menu-btn span {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.navbar.scrolled .navbar__logo {
+  filter: none;
+}
+
 .navbar__logo {
   height: 44px;
   width: auto;
   object-fit: contain;
-  transition: opacity var(--duration-fast);
-  will-change: opacity;
+  transition:
+    opacity var(--duration-fast),
+    filter var(--duration-mid) var(--ease-luxury);
+  will-change: opacity, filter;
 }
 
 .navbar__logo:hover {
@@ -224,12 +276,21 @@ button {
   border-radius: 100px;
   transition:
     background var(--duration-fast) var(--ease-luxury),
-    color var(--duration-fast) var(--ease-luxury);
+    color var(--duration-fast) var(--ease-luxury),
+    border-color var(--duration-fast) var(--ease-luxury);
 }
 
 .navbar__cta:hover {
   background: var(--charcoal);
   color: var(--white);
+}
+
+.navbar__menu-btn span {
+  transition:
+    transform var(--duration-mid) var(--ease-luxury),
+    opacity var(--duration-fast),
+    width var(--duration-mid) var(--ease-luxury),
+    background var(--duration-mid) var(--ease-luxury);
 }
 
 .navbar__menu-btn {
@@ -568,11 +629,12 @@ p {
 .marquee__item::after {
   content: "";
   display: inline-block;
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
   background: var(--soft-fawn);
-  border-radius: 50%;
   flex-shrink: 0;
+  transform: rotate(45deg);
+  opacity: 0.8;
 }
 
 @keyframes marqueeScroll {

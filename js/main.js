@@ -81,11 +81,20 @@ function initNavbar() {
   const navbar = document.querySelector(".navbar");
   if (!navbar) return;
 
-  // Cambio al hacer scroll
+  // Cambio al hacer scroll: quitar --dark y poner .scrolled
   ScrollTrigger.create({
     start: "top -80",
-    onEnter: () => navbar.classList.add("scrolled"),
-    onLeaveBack: () => navbar.classList.remove("scrolled"),
+    onEnter: () => {
+      navbar.classList.add("scrolled");
+      navbar.classList.remove("navbar--dark");
+    },
+    onLeaveBack: () => {
+      navbar.classList.remove("scrolled");
+      // Solo restaurar --dark si estamos en la home (hay hero)
+      if (document.querySelector(".hero")) {
+        navbar.classList.add("navbar--dark");
+      }
+    },
   });
 
   // Scroll progress bar
@@ -406,10 +415,20 @@ function initServicesScroll() {
   const panels = gsap.utils.toArray(".services-scroll__panel");
   if (panels.length === 0) return;
 
-  gsap.to(track, {
+  // Crear indicador de panel
+  const indicator = document.createElement("div");
+  indicator.className = "services-scroll__indicator";
+  indicator.innerHTML = `<span class="services-scroll__indicator-current">01</span><span class="services-scroll__indicator-sep">/</span><span class="services-scroll__indicator-total">${String(panels.length).padStart(2, "0")}</span>`;
+  document.querySelector(".services-scroll").appendChild(indicator);
+  const indicatorCurrent = indicator.querySelector(
+    ".services-scroll__indicator-current",
+  );
+
+  const st = gsap.to(track, {
     x: () => -(track.scrollWidth - window.innerWidth),
     ease: "none",
     scrollTrigger: {
+      id: "services-scroll",
       trigger: ".services-scroll",
       start: "top top",
       end: () => `+=${track.scrollWidth - window.innerWidth}`,
@@ -417,11 +436,17 @@ function initServicesScroll() {
       pin: true,
       anticipatePin: 1,
       invalidateOnRefresh: true,
+      onUpdate: (self) => {
+        const idx = Math.round(self.progress * (panels.length - 1));
+        if (indicatorCurrent) {
+          indicatorCurrent.textContent = String(idx + 1).padStart(2, "0");
+        }
+      },
     },
   });
 
   // Fade in de cada panel al entrar
-  panels.forEach((panel, i) => {
+  panels.forEach((panel) => {
     gsap.fromTo(
       panel.querySelector(".services-scroll__content"),
       { opacity: 0, y: 30 },
