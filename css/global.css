@@ -81,6 +81,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* compensa la navbar fija al anclar secciones */
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
 }
@@ -203,22 +204,42 @@ button {
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: 24px var(--container-pad);
+  padding: 22px clamp(16px, 3vw, 40px); /* casi pegado al borde */
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background: transparent;
   transition:
-    background var(--duration-mid) var(--ease-luxury),
+    background var(--duration-slow) var(--ease-luxury),
+    backdrop-filter var(--duration-slow) var(--ease-luxury),
     padding var(--duration-mid) var(--ease-luxury),
-    backdrop-filter var(--duration-mid);
+    box-shadow var(--duration-slow) var(--ease-luxury);
 }
 
+/* Estado al hacer scroll: glassmorphism sutil */
 .navbar.scrolled {
-  background: rgba(250, 248, 245, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  padding: 14px var(--container-pad);
-  box-shadow: 0 1px 30px rgba(0, 0, 0, 0.06);
+  background: rgba(250, 246, 243, 0.72);
+  backdrop-filter: blur(22px) saturate(1.4);
+  -webkit-backdrop-filter: blur(22px) saturate(1.4);
+  padding: 14px clamp(16px, 3vw, 40px);
+  box-shadow:
+    0 1px 0 rgba(220, 144, 174, 0.1),
+    0 4px 32px rgba(0, 0, 0, 0.05);
+}
+
+/* Menú hamburguesa — extremo izquierdo */
+.navbar__left {
+  display: flex;
+  align-items: center;
+}
+
+/* Logo: centrado absolutamente en la navbar */
+.navbar__logo-wrap {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
 }
 
 /* Navbar transparente sobre hero oscuro */
@@ -227,13 +248,10 @@ button {
 }
 
 .navbar--dark .navbar__cta {
-  color: rgba(255, 255, 255, 0.85);
-  border-color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .navbar--dark .navbar__cta:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.7);
   color: #fff;
 }
 
@@ -246,9 +264,11 @@ button {
 }
 
 .navbar__logo {
-  height: 44px;
+  height: 40px;
   width: auto;
   object-fit: contain;
+  /* Sombra sutil en todo momento */
+  filter: drop-shadow(0 2px 12px rgba(180, 90, 130, 0.18));
   transition:
     opacity var(--duration-fast),
     filter var(--duration-mid) var(--ease-luxury);
@@ -256,33 +276,61 @@ button {
 }
 
 .navbar__logo:hover {
-  opacity: 0.75;
+  opacity: 0.8;
 }
 
 .navbar__right {
   display: flex;
   align-items: center;
-  gap: 32px;
+  /* Solo contiene el CTA — el menú se movió a navbar__left */
 }
 
+/* CTA: solo texto, sin borde ni fondo */
 .navbar__cta {
   font-family: var(--font-subtitle);
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--charcoal);
-  padding: 10px 24px;
-  border: 1px solid var(--charcoal);
-  border-radius: 100px;
-  transition:
-    background var(--duration-fast) var(--ease-luxury),
-    color var(--duration-fast) var(--ease-luxury),
-    border-color var(--duration-fast) var(--ease-luxury);
+  padding: 4px 0;
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  /* Línea inferior animada al hover */
+  transition: color 0.3s ease;
 }
 
-.navbar__cta:hover {
-  background: var(--charcoal);
-  color: var(--white);
+.navbar__cta::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.4s ease;
+}
+
+.navbar__cta:hover,
+.navbar__cta:focus {
+  color: var(--pink-mist) !important;
+}
+
+.navbar__cta:hover::after,
+.navbar__cta:focus::after {
+  width: 100%;
+}
+
+/* Al hacer scroll: CTA vuelve a color oscuro */
+.navbar.scrolled .navbar__cta {
+  color: var(--charcoal);
+}
+
+.navbar.scrolled .navbar__cta:hover {
+  color: var(--pink-mist) !important;
 }
 
 .navbar__menu-btn span {
@@ -768,45 +816,108 @@ p {
   position: fixed;
   inset: 0;
   z-index: 99997;
-  background: var(--off-white);
+  overflow: hidden;
+}
+
+/* Paneles — puertas que se abren con calma */
+.page-loader__door {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  /*
+   * Degradado mesh rosado pálido — tono nube, nada saturado.
+   * Luz cálida en el centro, penumbra suave en las esquinas.
+   */
+  background:
+    radial-gradient(
+      ellipse 110% 90% at 50% 40%,
+      rgba(240, 210, 225, 0.7) 0%,
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse 70% 60% at 15% 20%,
+      rgba(249, 235, 246, 0.55) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 60% 70% at 85% 75%,
+      rgba(220, 188, 136, 0.12) 0%,
+      transparent 55%
+    ),
+    linear-gradient(160deg, #fdf0f5 0%, #f5e8ef 40%, #eedde8 70%, #f8eef4 100%);
+  will-change: transform;
+  /* Sutil borde interior que separa las dos puertas */
+}
+.page-loader__door--left {
+  left: 0;
+  transform-origin: left center;
+  border-right: 1px solid rgba(220, 144, 174, 0.15);
+}
+.page-loader__door--right {
+  right: 0;
+  transform-origin: right center;
+  border-left: 1px solid rgba(220, 144, 174, 0.15);
+}
+
+/* Contenedor central: logo + línea gold + barra */
+.page-loader__center {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
+  pointer-events: none;
 }
 
 .page-loader__logo {
-  height: 56px;
-  width: auto;
+  width: clamp(180px, 26vw, 320px);
+  height: auto;
   opacity: 0;
-  animation: loaderLogoIn 0.6s var(--ease-luxury) 0.2s forwards;
+  will-change: transform, opacity;
+  /* Sombra en capas: difusa + concentrada = profundidad real */
+  filter: drop-shadow(0 2px 6px rgba(180, 90, 130, 0.18))
+    drop-shadow(0 10px 40px rgba(220, 144, 174, 0.28))
+    drop-shadow(0 24px 80px rgba(200, 120, 160, 0.14));
+}
+
+/* Línea decorativa dorada bajo el logo */
+.page-loader__bar-line {
+  width: 110px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--soft-fawn) 30%,
+    rgba(220, 188, 136, 0.9) 50%,
+    var(--soft-fawn) 70%,
+    transparent
+  );
+  opacity: 0;
+  transform-origin: center;
+  will-change: transform, opacity;
 }
 
 .page-loader__bar {
   width: 120px;
   height: 1px;
-  background: var(--light-gray);
+  background: rgba(220, 144, 174, 0.18);
   overflow: hidden;
 }
 
 .page-loader__bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--pink-mist), var(--soft-fawn));
+  background: linear-gradient(
+    90deg,
+    rgba(220, 144, 174, 0.5),
+    rgba(220, 188, 136, 0.7),
+    rgba(220, 144, 174, 0.5)
+  );
   width: 0%;
-  animation: loaderBar 1.4s var(--ease-luxury) 0.4s forwards;
-}
-
-@keyframes loaderLogoIn {
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes loaderBar {
-  to {
-    width: 100%;
-  }
+  will-change: width;
 }
 
 /* ---- UTILIDADES ---- */

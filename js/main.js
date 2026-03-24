@@ -10,7 +10,18 @@ gsap.registerPlugin(ScrollTrigger, TextPlugin);
 // ─── PAGE LOADER ──────────────────────────────────────────────────────────────
 function initLoader() {
   const loader = document.querySelector(".page-loader");
+  const logo = document.querySelector(".page-loader__logo");
+  const barFill = document.querySelector(".page-loader__bar-fill");
+  const barLine = document.querySelector(".page-loader__bar-line");
+  const doorL = document.querySelector(".page-loader__door--left");
+  const doorR = document.querySelector(".page-loader__door--right");
+  const hero = document.querySelector(".hero");
   if (!loader) return;
+
+  document.body.style.overflow = "hidden";
+
+  // Hero empieza invisible; aparece cuando las puertas se abran
+  if (hero) gsap.set(hero, { opacity: 0 });
 
   const tl = gsap.timeline({
     onComplete: () => {
@@ -20,18 +31,80 @@ function initLoader() {
     },
   });
 
-  document.body.style.overflow = "hidden";
+  // 1) Logo aparece con una respiración suave — fade puro, sin escala brusca
+  tl.fromTo(
+    logo,
+    { opacity: 0, y: 12 },
+    { opacity: 1, y: 0, duration: 1.6, ease: "power2.out" },
+    0.4,
+  )
 
-  tl.to(".page-loader__bar-fill", {
-    duration: 1.4,
-    ease: "power2.inOut",
-    // barra animada con CSS, GSAP solo espera
-  }).to(".page-loader", {
-    opacity: 0,
-    duration: 0.6,
-    ease: "power2.inOut",
-    delay: 0.2,
-  });
+    // 2) Línea decorativa gold bajo el logo aparece con un deslizamiento
+    .fromTo(
+      barLine || {},
+      { scaleX: 0, opacity: 0 },
+      {
+        scaleX: 1,
+        opacity: 1,
+        duration: 1.2,
+        ease: "power2.inOut",
+        transformOrigin: "center",
+      },
+      1.0,
+    )
+
+    // 3) Barra de progreso avanza lentamente (3s — tiempo real para cargar assets)
+    .fromTo(
+      barFill,
+      { width: "0%" },
+      { width: "100%", duration: 3.0, ease: "power1.inOut" },
+      1.2,
+    )
+
+    // 4) Logo se desvanece con delicadeza (no encoge, solo se eleva levemente y desaparece)
+    .to(
+      logo,
+      {
+        opacity: 0,
+        y: -10,
+        duration: 1.0,
+        ease: "power2.inOut",
+      },
+      4.0,
+    )
+    .to(barLine || {}, { opacity: 0, duration: 0.6, ease: "power2.in" }, 4.0)
+    .to(barFill, { opacity: 0, duration: 0.6, ease: "power2.in" }, 4.0)
+
+    // 5) Las puertas se separan con calma ceremonial
+    .to(
+      doorL,
+      {
+        xPercent: -100,
+        duration: 1.4,
+        ease: "power2.inOut",
+      },
+      4.6,
+    )
+    .to(
+      doorR,
+      {
+        xPercent: 100,
+        duration: 1.4,
+        ease: "power2.inOut",
+      },
+      4.6,
+    )
+
+    // 6) Hero aparece suavemente mientras las puertas aún se mueven
+    .to(
+      hero || {},
+      {
+        opacity: 1,
+        duration: 1.2,
+        ease: "power2.out",
+      },
+      5.1,
+    );
 }
 
 // ─── CURSOR PERSONALIZADO (Antigravity) ───────────────────────────────────────
@@ -317,13 +390,26 @@ function initHeroParallax() {
 
 // ─── ANIMACIÓN HERO DE ENTRADA ────────────────────────────────────────────────
 function initHeroEntrance() {
-  const tl = gsap.timeline({ delay: 1.8 }); // después del loader
+  // El hero ya llegó con opacity:1 gracias al fade del loader.
+  // Ahora animamos los elementos internos con delay mínimo.
+  const tl = gsap.timeline({ delay: 0.15 });
 
   tl.fromTo(
-    ".hero__label",
-    { opacity: 0, y: 20 },
-    { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
+    ".hero__eyebrow-line",
+    { scaleX: 0 },
+    {
+      scaleX: 1,
+      duration: 0.5,
+      ease: "power3.out",
+      transformOrigin: "left center",
+    },
   )
+    .fromTo(
+      ".hero__label",
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
+      "-=0.2",
+    )
     .fromTo(
       ".hero__title",
       { opacity: 0, y: 60 },
@@ -350,9 +436,9 @@ function initHeroEntrance() {
     )
     .fromTo(
       ".hero__image",
-      { opacity: 0, scale: 1.06 },
-      { opacity: 1, scale: 1, duration: 1.4, ease: "power3.out" },
-      0.4,
+      { scale: 1.06 },
+      { scale: 1, duration: 1.4, ease: "power3.out" },
+      0,
     );
 }
 

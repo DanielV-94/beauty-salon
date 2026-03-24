@@ -13,16 +13,23 @@
   <link rel="stylesheet" href="css/home.css" />
 
   <!-- Favicon -->
-  <link rel="icon" href="rsc/logo.png" type="image/png" />
+  <link rel="icon" href="rsc/logo2.png" type="image/png" />
 </head>
 
 <body>
 
   <!-- ── LOADER ── -->
   <div class="page-loader" aria-hidden="true">
-    <img src="rsc/logo.png" alt="FC Luxe & Beauty" class="page-loader__logo" />
-    <div class="page-loader__bar">
-      <div class="page-loader__bar-fill"></div>
+    <!-- Dos paneles que se abren como puertas -->
+    <div class="page-loader__door page-loader__door--left"></div>
+    <div class="page-loader__door page-loader__door--right"></div>
+    <!-- Logo centrado (sobre las puertas) -->
+    <div class="page-loader__center">
+      <img src="rsc/logo.svg" alt="FC Luxe &amp; Beauty" class="page-loader__logo" />
+      <div class="page-loader__bar-line" aria-hidden="true"></div>
+      <div class="page-loader__bar">
+        <div class="page-loader__bar-fill"></div>
+      </div>
     </div>
   </div>
 
@@ -37,21 +44,29 @@
        NAVBAR
   ══════════════════════════════════════════ -->
   <nav class="navbar navbar--dark" aria-label="Navegación principal">
-    <a href="index.html" class="navbar__logo-wrap" aria-label="Inicio FC Luxe &amp; Beauty">
-      <img src="rsc/logo.png" alt="FC Luxe &amp; Beauty" class="navbar__logo" />
-    </a>
 
-    <div class="navbar__right">
-      <a href="https://wa.me/1234567890?text=Hola!%20Quiero%20agendar%20una%20cita" target="_blank" rel="noopener"
-        class="navbar__cta">
-        Agendar cita
-      </a>
+    <!-- Izquierda: botón hamburguesa -->
+    <div class="navbar__left">
       <button class="navbar__menu-btn" aria-label="Abrir menú" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
       </button>
     </div>
+
+    <!-- Centro: logo -->
+    <a href="index.html" class="navbar__logo-wrap" aria-label="Inicio FC Luxe &amp; Beauty">
+      <img src="rsc/logo.svg" alt="FC Luxe &amp; Beauty" class="navbar__logo" />
+    </a>
+
+    <!-- Derecha: CTA -->
+    <div class="navbar__right">
+      <a href="https://wa.me/1234567890?text=Hola!%20Quiero%20agendar%20una%20cita" target="_blank" rel="noopener"
+        class="navbar__cta">
+        Agendar cita
+      </a>
+    </div>
+
   </nav>
 
   <!-- ══════════════════════════════════════════
