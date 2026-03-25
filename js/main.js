@@ -225,7 +225,9 @@ function initMenu() {
   serviceLinks.forEach((link) => link.addEventListener("click", closeMenu));
 
   // Preview de imagen al hover sobre cada servicio
-  const serviceItems = document.querySelectorAll(".nav-overlay__service-item[data-service]");
+  const serviceItems = document.querySelectorAll(
+    ".nav-overlay__service-item[data-service]",
+  );
   const previewImgs = document.querySelectorAll(".nav-overlay__preview-img");
 
   serviceItems.forEach((item) => {
