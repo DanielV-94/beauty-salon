@@ -38,19 +38,19 @@
 /* ---- VARIABLES DE DISEÑO ---- */
 :root {
   /* Paleta FC Luxe & Beauty */
-  --pink-mist: #dc90ae;
+  --pink-mist: #f587b3ff;
   --lavender-mist: #e6e1e8;
-  --soft-fawn: #dcbc88;
-  --lavender-blush: #f9ebf6;
-  --pink-mist-2: #d99db1;
+  --soft-fawn: #dbac60ff;
+  --lavender-blush: #f6d4efff;
+  --pink-mist-2: #d13f70ff;
 
   /* Neutros de lujo */
   --white: #ffffff;
   --off-white: #faf8f5;
-  --charcoal: #1a1a1a;
+  --charcoal: #371d27ff;
   --dark: #111111;
-  --mid-gray: #6b6b6b;
-  --light-gray: #e8e4e0;
+  --mid-gray: #4e4e4eff;
+  --light-gray: #a4a3a2ff;
 
   /* Tipografía */
   --font-title: "Claire", serif; /* títulos h1-h4 */
@@ -406,7 +406,7 @@ button {
 /* Layout interior: 3 columnas */
 .nav-overlay__inner {
   display: grid;
-  grid-template-columns: 300px 1fr 1fr;
+  grid-template-columns: 330px 0.9fr 1fr;
   width: 100%;
   height: 100%;
 }
@@ -416,7 +416,6 @@ button {
   display: flex;
   flex-direction: column;
   padding: 32px 36px;
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
   position: relative;
   overflow: hidden;
 }
@@ -433,7 +432,7 @@ button {
   padding: 0;
   margin-bottom: 28px;
   font-family: var(--font-subtitle);
-  opacity: 0.7;
+  opacity: 0.9;
   transition: opacity var(--duration-fast);
 }
 .nav-overlay__close:hover {
@@ -465,11 +464,14 @@ button {
   margin-bottom: 36px;
 }
 .nav-overlay__nav-link {
-  font-family: var(--font-subtitle);
-  font-size: 0.72rem;
-  letter-spacing: 0.15em;
+  font-family: var(--font-display);
+  font-feature-settings:
+    "dlig" 1,
+    "liga" 1;
+  font-size: 1.1rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(250, 248, 245, 0.5);
+  color: rgba(250, 248, 245, 0.8);
   transition: color var(--duration-fast);
 }
 .nav-overlay__nav-link:hover {
@@ -482,22 +484,25 @@ button {
 }
 .nav-overlay__booking-label {
   font-family: var(--font-display);
-  font-size: 0.65rem;
+  font-size: 0.9rem;
   font-feature-settings:
     "dlig" 1,
     "liga" 1;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(250, 248, 245, 0.35);
+  color: rgba(250, 248, 245, 0.85);
   margin-bottom: 10px;
 }
 .nav-overlay__booking-link {
   display: block;
-  font-family: var(--font-subtitle);
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
+  font-family: var(--font-display);
+  font-feature-settings:
+    "dlig" 1,
+    "liga" 1;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(250, 248, 245, 0.5);
+  color: rgba(250, 248, 245, 0.8);
   padding: 4px 0;
   transition: color var(--duration-fast);
 }
@@ -517,11 +522,14 @@ button {
   gap: 20px;
 }
 .nav-overlay__social a {
-  font-family: var(--font-subtitle);
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
+  font-family: var(--font-display);
+  font-feature-settings:
+    "dlig" 1,
+    "liga" 1;
+  font-size: 0.95rem;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(250, 248, 245, 0.4);
+  color: rgba(250, 248, 245, 0.8);
   transition: color var(--duration-fast);
 }
 .nav-overlay__social a:hover {
@@ -531,17 +539,17 @@ button {
 /* Foto inferior izquierda */
 .nav-overlay__photo-wrap {
   width: 100%;
-  aspect-ratio: 3 / 4;
-  max-height: 260px;
+  flex: 1;
+  min-height: 0;
   overflow: hidden;
   border-radius: 4px;
 }
 .nav-overlay__photo {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center top;
-  filter: grayscale(20%) brightness(0.85);
+  object-fit: contain;
+  object-position: bottom center;
+  filter: saturate(1) brightness(0.85);
 }
 
 /* ── COL 2: Servicios (zona verde) ── */
@@ -549,7 +557,6 @@ button {
   display: flex;
   flex-direction: column;
   padding: 40px 48px;
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
   overflow-y: auto;
 }
 
@@ -558,10 +565,10 @@ button {
   font-feature-settings:
     "dlig" 1,
     "liga" 1;
-  font-size: 0.6rem;
-  letter-spacing: 0.35em;
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(250, 248, 245, 0.3);
+  color: rgba(250, 248, 245, 0.8);
   margin-bottom: 28px;
   display: block;
 }
@@ -627,16 +634,19 @@ button {
     "dlig" 0,
     "liga" 0;
   font-size: 0.65rem;
-  letter-spacing: 0.08em;
-  color: rgba(250, 248, 245, 0.3);
+  letter-spacing: 0.06em;
+  color: rgba(250, 248, 245, 1);
 }
 
 .nav-overlay__service-link {
-  font-family: var(--font-subtitle);
-  font-size: clamp(0.85rem, 1.4vw, 1rem);
-  letter-spacing: 0.12em;
+  font-family: var(--font-display);
+  font-feature-settings:
+    "dlig" 1,
+    "liga" 1;
+  font-size: clamp(1.08rem, 1.8vw, 1.26rem);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(250, 248, 245, 0.75);
+  color: rgba(250, 248, 245, 0.95);
   transition: color var(--duration-fast);
 }
 .nav-overlay__service-link:hover {
