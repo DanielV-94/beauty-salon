@@ -115,28 +115,57 @@
         class="navbar__cta">Agendar cita</a>
     </div>
   </nav>
-  <div class="nav-overlay" role="dialog" aria-modal="true">
+  <!-- MENÚ OVERLAY -->
+  <div class="nav-overlay" role="dialog" aria-modal="true" aria-label="Menú de navegación">
     <div class="nav-overlay__inner">
-      <nav class="nav-overlay__links">
-        <div class="nav-overlay__item"><a href="index.html" class="nav-overlay__link">Home</a></div>
-        <div class="nav-overlay__item"><a href="servicios.html"
-            class="nav-overlay__link nav-overlay__sub-toggle">Servicios</a>
-          <div class="nav-overlay__sub open"><a href="servicios/manicure.html">Manicure</a><a
-              href="servicios/pedicure.html">Pedicure</a><a href="servicios/extensiones.html">Extensiones</a><a
-              href="servicios/masajes.html">Masajes</a><a href="servicios/faciales.html">Faciales</a><a
-              href="servicios/alisado.html">Alisado</a><a href="servicios/pestanas.html">Pestañas</a><a
-              href="servicios/colorimetria.html">Colorimetría</a></div>
+      <div class="nav-overlay__col nav-overlay__col--left">
+        <button class="nav-overlay__close" aria-label="Cerrar menú">✕</button>
+        <div class="nav-overlay__brand"><span class="nav-overlay__brand-title">MENÚ</span></div>
+        <nav class="nav-overlay__nav-links">
+          <a href="index.html" class="nav-overlay__nav-link">/ Home</a>
+          <a href="historia.html" class="nav-overlay__nav-link">/ Nuestra Historia</a>
+          <a href="galeria.html" class="nav-overlay__nav-link">/ Galería</a>
+          <a href="ubicacion.html" class="nav-overlay__nav-link">/ Ubicación</a>
+        </nav>
+        <div class="nav-overlay__booking">
+          <p class="nav-overlay__booking-label">Reservaciones</p>
+          <a href="https://wa.me/1234567890" class="nav-overlay__booking-link" target="_blank" rel="noopener">/ Vía
+            WhatsApp</a>
+          <a href="contacto.html" class="nav-overlay__booking-link">/ Contáctanos</a>
         </div>
-        <div class="nav-overlay__item"><a href="historia.html" class="nav-overlay__link">Nuestra Historia</a></div>
-        <div class="nav-overlay__item"><a href="galeria.html" class="nav-overlay__link">Galería</a></div>
-        <div class="nav-overlay__item"><a href="ubicacion.html" class="nav-overlay__link">Ubicación</a></div>
-        <div class="nav-overlay__item"><a href="contacto.html" class="nav-overlay__link">Contacto</a></div>
-      </nav>
-      <div class="nav-overlay__deco"><img src="rsc/svg/05.svg" alt="" aria-hidden="true" />
-        <div class="nav-overlay__social"><a href="#" target="_blank" rel="noopener">Instagram</a><a href="#"
-            target="_blank" rel="noopener">Facebook</a><a href="#" target="_blank" rel="noopener">TikTok</a></div>
+        <div class="nav-overlay__bottom">
+          <div class="nav-overlay__social">
+            <a href="#" target="_blank" rel="noopener">Facebook</a>
+            <a href="#" target="_blank" rel="noopener">Instagram</a>
+          </div>
+          <div class="nav-overlay__photo-wrap">
+            <img src="rsc/png/modelos/modelos (17)-1.png" alt="FC Luxe &amp; Beauty" class="nav-overlay__photo" />
+          </div>
+        </div>
       </div>
-    </div><span class="nav-overlay__lang">ES</span>
+      <div class="nav-overlay__col nav-overlay__col--services">
+        <span class="nav-overlay__services-title">FC LUXE &amp; BEAUTY</span>
+        <ul class="nav-overlay__service-list">
+          <li class="nav-overlay__service-item"><span class="nav-overlay__service-num">001</span><a
+              href="servicios/manicure.html" class="nav-overlay__service-link">Manicure</a></li>
+          <li class="nav-overlay__service-item"><span class="nav-overlay__service-num">002</span><a
+              href="servicios/pedicure.html" class="nav-overlay__service-link">Pedicure</a></li>
+          <li class="nav-overlay__service-item"><span class="nav-overlay__service-num">003</span><a
+              href="servicios/pestanas.html" class="nav-overlay__service-link">Extensiones de Pestañas</a></li>
+          <li class="nav-overlay__service-item"><span class="nav-overlay__service-num">004</span><a
+              href="servicios/extensiones.html" class="nav-overlay__service-link">Extensiones de Cabello</a></li>
+          <li class="nav-overlay__service-item"><span class="nav-overlay__service-num">005</span><a
+              href="servicios/faciales.html" class="nav-overlay__service-link">Faciales</a></li>
+          <li class="nav-overlay__service-item"><span class="nav-overlay__service-num">006</span><a
+              href="servicios/masajes.html" class="nav-overlay__service-link">Masajes</a></li>
+          <li class="nav-overlay__service-item"><span class="nav-overlay__service-num">007</span><a
+              href="servicios/alisado.html" class="nav-overlay__service-link">Alisado</a></li>
+          <li class="nav-overlay__service-item"><span class="nav-overlay__service-num">008</span><a
+              href="servicios/colorimetria.html" class="nav-overlay__service-link">Colorimetría</a></li>
+        </ul>
+      </div>
+      <div class="nav-overlay__col nav-overlay__col--empty"></div>
+    </div>
   </div>
 
   <header class="page-hero reveal-scale">

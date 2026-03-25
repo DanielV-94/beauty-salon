@@ -7,147 +7,6 @@
 // ─── GSAP SETUP ───────────────────────────────────────────────────────────────
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
-// ─── SMOOTH SCROLL INERCIAL (Luxury Lerp) ────────────────────────────────────
-// Técnica: página real con overflow hidden, un wrapper translate3d que sigue
-// la posición nativa con interpolación suave (lerp). ScrollTrigger se sincroniza
-// leyendo la posición virtual. Resultado: scroll casi imperceptiblemente fluido.
-(function initSmoothScroll() {
-  // Solo desktop — en móvil el scroll nativo es más suave
-  const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
-  if (isMobile) return;
-
-  // Crear wrapper si no existe
-  let wrapper = document.querySelector(".smooth-wrapper");
-  if (!wrapper) {
-    wrapper = document.createElement("div");
-    wrapper.className = "smooth-wrapper";
-    // Mover todos los hijos de body dentro del wrapper
-    while (document.body.firstChild) {
-      wrapper.appendChild(document.body.firstChild);
-    }
-    document.body.appendChild(wrapper);
-  }
-
-  // Estilos necesarios
-  Object.assign(document.documentElement.style, {
-    overflow: "hidden",
-    height: "100%",
-  });
-  Object.assign(document.body.style, {
-    overflow: "hidden",
-    height: "100%",
-    position: "fixed",
-    width: "100%",
-  });
-  Object.assign(wrapper.style, {
-    willChange: "transform",
-    position: "fixed",
-    top: "0",
-    left: "0",
-    width: "100%",
-  });
-
-  let currentY = 0; // posición suavizada actual
-  let targetY = 0; // posición real del scroll nativo virtual
-  let maxScroll = 0;
-
-  // Scroll virtual: rueda del ratón acumula en targetY
-  window.addEventListener(
-    "wheel",
-    (e) => {
-      e.preventDefault();
-      if (window._smoothScrollLocked) return;
-      targetY = Math.max(0, Math.min(targetY + e.deltaY * 1.0, maxScroll));
-    },
-    { passive: false },
-  );
-
-  // Soporte teclas: flecha abajo/arriba, espacio, Av Pág / Re Pág, Inicio/Fin
-  window.addEventListener("keydown", (e) => {
-    if (window._smoothScrollLocked) return;
-    const step = window.innerHeight * 0.85;
-    const map = {
-      ArrowDown: 120,
-      ArrowUp: -120,
-      " ": step,
-      Shift: 0,
-      PageDown: step,
-      PageUp: -step,
-      Home: -999999,
-      End: 999999,
-    };
-    // Espacio con Shift = subir
-    const delta = e.key === " " && e.shiftKey ? -step : (map[e.key] ?? null);
-    if (delta !== null) {
-      e.preventDefault();
-      targetY = Math.max(0, Math.min(targetY + delta, maxScroll));
-    }
-  });
-
-  function updateHeight() {
-    maxScroll = wrapper.offsetHeight - window.innerHeight;
-  }
-
-  // Sincronizar ScrollTrigger con nuestro scroll virtual
-  ScrollTrigger.scrollerProxy(wrapper, {
-    scrollTop(value) {
-      if (arguments.length) {
-        currentY = value;
-        targetY = value;
-      }
-      return currentY;
-    },
-    getBoundingClientRect() {
-      return {
-        top: 0,
-        left: 0,
-        width: window.innerWidth,
-        height: window.innerHeight,
-      };
-    },
-    pinType: "transform",
-  });
-
-  ScrollTrigger.defaults({ scroller: wrapper });
-
-  // Tick principal: lerp ultra-suave (factor 0.07 = muy lento e inercial)
-  const LERP = 0.07;
-  let rafId;
-  function tick() {
-    currentY += (targetY - currentY) * LERP;
-
-    // Snap a 0 cuando está muy cerca (evita micro-drift)
-    if (Math.abs(targetY - currentY) < 0.05) currentY = targetY;
-
-    wrapper.style.transform = `translate3d(0, ${-currentY}px, 0)`;
-
-    // Notificar a ScrollTrigger la posición actual
-    ScrollTrigger.update();
-
-    rafId = requestAnimationFrame(tick);
-  }
-  tick();
-
-  // Actualizar alturas al resize
-  let resizeTimer;
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      updateHeight();
-      ScrollTrigger.refresh();
-    }, 150);
-  });
-
-  // Observer para cambios de contenido dinámico
-  const ro = new ResizeObserver(() => {
-    updateHeight();
-    ScrollTrigger.refresh();
-  });
-  ro.observe(wrapper);
-
-  updateHeight();
-})();
-
 // ─── PAGE LOADER ──────────────────────────────────────────────────────────────
 function initLoader() {
   const loader = document.querySelector(".page-loader");
@@ -159,11 +18,7 @@ function initLoader() {
   const hero = document.querySelector(".hero");
   if (!loader) return;
 
-  // Bloquear scroll durante el loader (compatible con smooth scroll)
-  // El smooth scroll ya fija el body; solo necesitamos bloquear el targetY
-  const smoothWrapper = document.querySelector(".smooth-wrapper");
-  let scrollLocked = true;
-  window._smoothScrollLocked = true;
+  document.body.style.overflow = "hidden";
 
   // Hero empieza invisible; aparece cuando las puertas se abran
   if (hero) gsap.set(hero, { opacity: 0 });
@@ -171,7 +26,7 @@ function initLoader() {
   const tl = gsap.timeline({
     onComplete: () => {
       loader.style.display = "none";
-      window._smoothScrollLocked = false;
+      document.body.style.overflow = "";
       initPageAnimations();
     },
   });
@@ -255,42 +110,39 @@ function initLoader() {
 // ─── CURSOR PERSONALIZADO (Antigravity) ───────────────────────────────────────
 function initCursor() {
   const dot = document.querySelector(".cursor-dot");
-  const ring = document.querySelector(".cursor-ring");
-  if (!dot || !ring) return;
+  if (!dot) return;
 
   let mouseX = 0,
     mouseY = 0;
-  let ringX = 0,
-    ringY = 0;
+
+  // Posición inicial fuera de pantalla
+  gsap.set(dot, { x: -100, y: -100 });
 
   document.addEventListener("mousemove", (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
-    gsap.to(dot, { x: mouseX, y: mouseY, duration: 0.1, ease: "none" });
+    gsap.to(dot, { x: mouseX, y: mouseY, duration: 0.08, ease: "none" });
   });
 
-  // Ring sigue con lag suave (antigravity lag)
-  gsap.ticker.add(() => {
-    ringX += (mouseX - ringX) * 0.12;
-    ringY += (mouseY - ringY) * 0.12;
-    gsap.set(ring, { x: ringX, y: ringY });
-  });
-
-  // Hover en links y botones
+  // Hover: scale-up con GSAP (como el anillo) + rotación leve
   const hoverEls = document.querySelectorAll(
     "a, button, .btn, .service-card, .gallery-item",
   );
   hoverEls.forEach((el) => {
-    el.addEventListener("mouseenter", () => ring.classList.add("hover"));
-    el.addEventListener("mouseleave", () => ring.classList.remove("hover"));
+    el.addEventListener("mouseenter", () => {
+      gsap.to(dot, { scale: 1.6, duration: 0.3, ease: "back.out(1.7)" });
+    });
+    el.addEventListener("mouseleave", () => {
+      gsap.to(dot, { scale: 1, duration: 0.3, ease: "power2.out" });
+    });
   });
 
   // Ocultar cursor al salir de la ventana
   document.addEventListener("mouseleave", () => {
-    gsap.to([dot, ring], { opacity: 0, duration: 0.3 });
+    gsap.to(dot, { opacity: 0, duration: 0.3 });
   });
   document.addEventListener("mouseenter", () => {
-    gsap.to([dot, ring], { opacity: 1, duration: 0.3 });
+    gsap.to(dot, { opacity: 1, duration: 0.3 });
   });
 }
 
@@ -318,12 +170,11 @@ function initNavbar() {
   // Scroll progress bar
   const progressBar = document.querySelector(".scroll-progress");
   if (progressBar) {
-    const scroller = document.querySelector(".smooth-wrapper") || document.body;
     gsap.to(progressBar, {
       width: "100%",
       ease: "none",
       scrollTrigger: {
-        trigger: scroller,
+        trigger: document.body,
         start: "top top",
         end: "bottom bottom",
         scrub: 0.3,
@@ -335,9 +186,9 @@ function initNavbar() {
 // ─── MENÚ OVERLAY ─────────────────────────────────────────────────────────────
 function initMenu() {
   const menuBtn = document.querySelector(".navbar__menu-btn");
+  const closeBtn = document.querySelector(".nav-overlay__close");
   const overlay = document.querySelector(".nav-overlay");
-  const links = document.querySelectorAll(".nav-overlay__link");
-  const subToggle = document.querySelectorAll(".nav-overlay__sub-toggle");
+  const navbar = document.querySelector(".navbar");
 
   if (!menuBtn || !overlay) return;
 
@@ -347,59 +198,31 @@ function initMenu() {
     isOpen = true;
     overlay.classList.add("open");
     menuBtn.classList.add("active");
+    if (navbar) navbar.classList.add("menu-open");
     document.body.style.overflow = "hidden";
-
-    // Animar links de forma escalonada
-    gsap.fromTo(
-      links,
-      { y: "110%" },
-      {
-        y: "0%",
-        duration: 0.7,
-        ease: "power3.out",
-        stagger: 0.08,
-        delay: 0.3,
-      },
-    );
   }
 
   function closeMenu() {
     isOpen = false;
-    gsap.to(links, {
-      y: "110%",
-      duration: 0.4,
-      ease: "power2.in",
-      stagger: 0.04,
-      onComplete: () => {
-        overlay.classList.remove("open");
-        document.body.style.overflow = "";
-      },
-    });
+    overlay.classList.remove("open");
     menuBtn.classList.remove("active");
+    if (navbar) navbar.classList.remove("menu-open");
+    document.body.style.overflow = "";
   }
 
   menuBtn.addEventListener("click", () => (isOpen ? closeMenu() : openMenu()));
+  if (closeBtn) closeBtn.addEventListener("click", closeMenu);
 
   // Cerrar con Escape
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && isOpen) closeMenu();
   });
 
-  // Submenu servicios
-  subToggle.forEach((toggle) => {
-    toggle.addEventListener("click", (e) => {
-      e.preventDefault();
-      const sub = toggle.nextElementSibling;
-      if (sub) sub.classList.toggle("open");
-    });
-  });
-
-  // Cerrar overlay al hacer click en link (que no sea el toggle)
-  links.forEach((link) => {
-    if (!link.classList.contains("nav-overlay__sub-toggle")) {
-      link.addEventListener("click", closeMenu);
-    }
-  });
+  // Cerrar al hacer click en links de servicio
+  const serviceLinks = document.querySelectorAll(
+    ".nav-overlay__service-link, .nav-overlay__nav-link, .nav-overlay__booking-link",
+  );
+  serviceLinks.forEach((link) => link.addEventListener("click", closeMenu));
 }
 
 // ─── ANIMACIONES DE ENTRADA (ScrollTrigger) ───────────────────────────────────
