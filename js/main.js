@@ -223,6 +223,22 @@ function initMenu() {
     ".nav-overlay__service-link, .nav-overlay__nav-link, .nav-overlay__booking-link",
   );
   serviceLinks.forEach((link) => link.addEventListener("click", closeMenu));
+
+  // Preview de imagen al hover sobre cada servicio
+  const serviceItems = document.querySelectorAll(".nav-overlay__service-item[data-service]");
+  const previewImgs = document.querySelectorAll(".nav-overlay__preview-img");
+
+  serviceItems.forEach((item) => {
+    item.addEventListener("mouseenter", () => {
+      const key = item.dataset.service;
+      previewImgs.forEach((img) => {
+        img.classList.toggle("active", img.dataset.service === key);
+      });
+    });
+    item.addEventListener("mouseleave", () => {
+      previewImgs.forEach((img) => img.classList.remove("active"));
+    });
+  });
 }
 
 // ─── ANIMACIONES DE ENTRADA (ScrollTrigger) ───────────────────────────────────
