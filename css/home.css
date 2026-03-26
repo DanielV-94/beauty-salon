@@ -162,7 +162,7 @@
 
 /* ── DRAG SLIDER DE SERVICIOS ────────── */
 .drag-slider {
-  background: var(--off-white);
+  background: var(--white);
   padding: clamp(64px, 8vw, 100px) 0 clamp(48px, 6vw, 72px);
   overflow: hidden;
 }
@@ -345,6 +345,10 @@
 /* ── SOBRE NOSOTROS ───────────────────── */
 .about {
   background: var(--white);
+  background-image: url(/rsc/png/decor/130.png);
+  background-repeat: no-repeat;
+  background-blend-mode: soft-light;
+  background-size: cover;
   overflow: hidden;
 }
 
