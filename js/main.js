@@ -377,50 +377,45 @@ function initHeroParallax() {
 
 // ─── ANIMACIÓN HERO DE ENTRADA ────────────────────────────────────────────────
 function initHeroEntrance() {
-  // El hero ya llegó con opacity:1 gracias al fade del loader.
-  // Ahora animamos los elementos internos con delay mínimo.
+  // Establecemos estado inicial via JS (no CSS) para robustez
+  gsap.set(".hero__label", { opacity: 0, y: 20 });
+  gsap.set(".hero__title", { opacity: 0, y: 60 });
+  gsap.set(".hero__subtitle", { opacity: 0, y: 30 });
+  gsap.set(".hero__actions", { opacity: 0, y: 20 });
+  gsap.set(".hero__scroll-hint", { opacity: 0 });
+  gsap.set(".hero__eyebrow-line", {
+    scaleX: 0,
+    transformOrigin: "left center",
+  });
+
   const tl = gsap.timeline({ delay: 0.15 });
 
-  tl.fromTo(
-    ".hero__eyebrow-line",
-    { scaleX: 0 },
-    {
-      scaleX: 1,
-      duration: 0.5,
-      ease: "power3.out",
-      transformOrigin: "left center",
-    },
-  )
-    .fromTo(
+  tl.to(".hero__eyebrow-line", {
+    scaleX: 1,
+    duration: 0.5,
+    ease: "power3.out",
+  })
+    .to(
       ".hero__label",
-      { opacity: 0, y: 20 },
       { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
       "-=0.2",
     )
-    .fromTo(
+    .to(
       ".hero__title",
-      { opacity: 0, y: 60 },
       { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
       "-=0.2",
     )
-    .fromTo(
+    .to(
       ".hero__subtitle",
-      { opacity: 0, y: 30 },
       { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" },
       "-=0.4",
     )
-    .fromTo(
+    .to(
       ".hero__actions",
-      { opacity: 0, y: 20 },
       { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
       "-=0.3",
     )
-    .fromTo(
-      ".hero__scroll-hint",
-      { opacity: 0 },
-      { opacity: 1, duration: 0.6 },
-      "-=0.2",
-    )
+    .to(".hero__scroll-hint", { opacity: 1, duration: 0.6 }, "-=0.2")
     .fromTo(
       ".hero__image",
       { scale: 1.06 },
@@ -480,63 +475,152 @@ function initCardHover() {
   });
 }
 
-// ─── SCROLL HORIZONTAL DE SERVICIOS ──────────────────────────────────────────
-function initServicesScroll() {
-  const track = document.querySelector(".services-scroll__track");
-  if (!track) return;
+// ─── DRAG SLIDER INFINITO DE SERVICIOS ───────────────────────────────────────
+function initDragSlider() {
+  const viewport = document.querySelector(".drag-slider__viewport");
+  const track = document.querySelector(".drag-slider__track");
+  if (!viewport || !track) return;
 
-  const panels = gsap.utils.toArray(".services-scroll__panel");
-  if (panels.length === 0) return;
+  // ── Loop infinito: clonar todas las cards y añadirlas al final ──
+  const originalCards = Array.from(
+    track.querySelectorAll(".drag-slider__card"),
+  );
+  originalCards.forEach((card) => {
+    const clone = card.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    // quitar tabindex de links dentro del clon
+    clone
+      .querySelectorAll("a")
+      .forEach((a) => a.setAttribute("tabindex", "-1"));
+    track.appendChild(clone);
+  });
 
-  // Crear indicador de panel
-  const indicator = document.createElement("div");
-  indicator.className = "services-scroll__indicator";
-  indicator.innerHTML = `<span class="services-scroll__indicator-current">01</span><span class="services-scroll__indicator-sep">/</span><span class="services-scroll__indicator-total">${String(panels.length).padStart(2, "0")}</span>`;
-  document.querySelector(".services-scroll").appendChild(indicator);
-  const indicatorCurrent = indicator.querySelector(
-    ".services-scroll__indicator-current",
+  // Aplicar rotaciones desde data-rotate a TODAS las cards (originales + clones)
+  track.querySelectorAll(".drag-slider__card").forEach((card) => {
+    const deg = card.dataset.rotate || "0";
+    card.style.setProperty("--card-rotate", `${deg}deg`);
+  });
+
+  // Estado del drag
+  let isDragging = false;
+  let startX = 0;
+  let currentX = 0;
+  let velX = 0;
+  let lastX = 0;
+  let lastTime = 0;
+  let rafId = null;
+  let didDrag = false;
+
+  // Ancho del set original (mitad del track duplicado)
+  function getSetWidth() {
+    return track.scrollWidth / 2;
+  }
+
+  function applyX(x) {
+    currentX = x;
+    track.style.transform = `translateX(${x}px)`;
+  }
+
+  // Wrap infinito: cuando pasa del set completo, saltamos sin transición
+  function wrapInfinite() {
+    const setW = getSetWidth();
+    if (currentX < -setW) {
+      currentX += setW;
+      track.style.transform = `translateX(${currentX}px)`;
+    } else if (currentX > 0) {
+      currentX -= setW;
+      track.style.transform = `translateX(${currentX}px)`;
+    }
+  }
+
+  // Inercia suave + wrap infinito
+  function inertiaLoop() {
+    velX *= 0.92;
+    if (Math.abs(velX) < 0.2) {
+      velX = 0;
+      return;
+    }
+    currentX += velX;
+    wrapInfinite();
+    track.style.transform = `translateX(${currentX}px)`;
+    rafId = requestAnimationFrame(inertiaLoop);
+  }
+
+  // Pointer events
+  function onPointerDown(e) {
+    isDragging = true;
+    didDrag = false;
+    startX = (e.touches ? e.touches[0].clientX : e.clientX) - currentX;
+    lastX = e.touches ? e.touches[0].clientX : e.clientX;
+    lastTime = Date.now();
+    velX = 0;
+    if (rafId) cancelAnimationFrame(rafId);
+    viewport.classList.add("is-dragging");
+    e.preventDefault();
+  }
+
+  function onPointerMove(e) {
+    if (!isDragging) return;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const now = Date.now();
+    const dt = Math.max(now - lastTime, 1);
+    velX = ((clientX - lastX) / dt) * 14;
+    lastX = clientX;
+    lastTime = now;
+
+    const next = clientX - startX;
+    if (Math.abs(next - currentX) > 6) didDrag = true;
+    currentX = next;
+    wrapInfinite();
+    track.style.transform = `translateX(${currentX}px)`;
+  }
+
+  function onPointerUp(e) {
+    if (!isDragging) return;
+    isDragging = false;
+    viewport.classList.remove("is-dragging");
+    const clientX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+    if (Math.abs(clientX - (startX + currentX)) > 6) didDrag = true;
+    rafId = requestAnimationFrame(inertiaLoop);
+  }
+
+  // Cancelar click si hubo drag
+  viewport.addEventListener(
+    "click",
+    (e) => {
+      if (didDrag) {
+        e.preventDefault();
+        e.stopPropagation();
+        didDrag = false;
+      }
+    },
+    true,
   );
 
-  const st = gsap.to(track, {
-    x: () => -(track.scrollWidth - window.innerWidth),
-    ease: "none",
-    scrollTrigger: {
-      id: "services-scroll",
-      trigger: ".services-scroll",
-      start: "top top",
-      end: () => `+=${track.scrollWidth - window.innerWidth}`,
-      scrub: 1,
-      pin: true,
-      anticipatePin: 1,
-      invalidateOnRefresh: true,
-      onUpdate: (self) => {
-        const idx = Math.round(self.progress * (panels.length - 1));
-        if (indicatorCurrent) {
-          indicatorCurrent.textContent = String(idx + 1).padStart(2, "0");
-        }
+  viewport.addEventListener("mousedown", onPointerDown);
+  viewport.addEventListener("touchstart", onPointerDown, { passive: false });
+  window.addEventListener("mousemove", onPointerMove);
+  window.addEventListener("touchmove", onPointerMove, { passive: false });
+  window.addEventListener("mouseup", onPointerUp);
+  window.addEventListener("touchend", onPointerUp);
+
+  // Entrada con scroll-triggered reveal (solo originales)
+  gsap.fromTo(
+    originalCards,
+    { opacity: 0, y: 40 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 0.7,
+      ease: "power3.out",
+      stagger: 0.08,
+      scrollTrigger: {
+        trigger: ".drag-slider",
+        start: "top 75%",
+        toggleActions: "play none none none",
       },
     },
-  });
-
-  // Fade in de cada panel al entrar
-  panels.forEach((panel) => {
-    gsap.fromTo(
-      panel.querySelector(".services-scroll__content"),
-      { opacity: 0, y: 30 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: panel,
-          containerAnimation: ScrollTrigger.getById("services-scroll"),
-          start: "left 70%",
-          toggleActions: "play none none reverse",
-        },
-      },
-    );
-  });
+  );
 }
 
 // ─── ACORDEÓN FAQ ─────────────────────────────────────────────────────────────
@@ -606,7 +690,7 @@ function initPageAnimations() {
   initHeroEntrance();
   initCounters();
   initCardHover();
-  initServicesScroll();
+  initDragSlider();
   initAccordion();
   initImageParallax();
 }
