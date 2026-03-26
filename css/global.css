@@ -766,7 +766,7 @@ p {
 }
 
 .btn:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
 .btn--dark {
@@ -792,11 +792,18 @@ p {
 .btn--pink {
   background: var(--pink-mist);
   color: var(--white);
+  box-shadow:
+    0 4px 16px rgba(220, 144, 174, 0.45),
+    0 1px 4px rgba(220, 144, 174, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 .btn--pink:hover {
   background: var(--pink-mist-2);
-  box-shadow: var(--shadow-float);
+  box-shadow:
+    0 8px 28px rgba(220, 144, 174, 0.55),
+    0 3px 10px rgba(220, 144, 174, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .btn--ghost {
