@@ -86,8 +86,7 @@ h3,
 h4,
 .btn,
 .navbar__cta,
-.section-label,
-.hero__label {
+.section-label {
   font-feature-settings:
     "liga" 0,
     "clig" 0,
@@ -157,6 +156,13 @@ button {
   }
 }
 
+/* ---- LINKS DESHABILITADOS TEMPORALMENTE ---- */
+[data-disabled="true"] {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.45;
+}
+
 /* ---- CURSOR PERSONALIZADO ---- */
 .cursor-dot {
   position: fixed;
@@ -171,13 +177,17 @@ button {
   will-change: transform;
 }
 
-.cursor-dot.dot--hidden {
-  opacity: 0;
-}
-
 /* El anillo queda desactivado — solo usamos el SVG */
 .cursor-ring {
   display: none;
+}
+
+/* Cursor oculto en dispositivos táctiles (tablet y mobile) */
+@media (max-width: 1024px) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
 }
 
 /* ---- NAVBAR ---- */
@@ -769,16 +779,6 @@ p {
   transform: translateY(-3px);
 }
 
-.btn--dark {
-  background: var(--charcoal);
-  color: var(--white);
-}
-
-.btn--dark:hover {
-  background: #333;
-  box-shadow: var(--shadow-float);
-}
-
 .btn--outline {
   border: 1px solid var(--charcoal);
   color: var(--charcoal);
@@ -922,48 +922,47 @@ p {
 .footer {
   background: var(--charcoal);
   color: var(--off-white);
-  padding: 80px 0 40px;
+  padding: 0;
 }
 
 .footer__grid {
   display: grid;
   grid-template-columns: 1.5fr 1fr 1fr 1fr;
-  gap: 48px;
-  padding-bottom: 60px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 28px;
+  padding: 32px 0 28px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .footer__logo {
-  height: 48px;
+  height: 200px;
   width: auto;
-  margin-bottom: 24px;
-  filter: brightness(10);
-  opacity: 0.85;
+  margin-bottom: 14px;
+  /* logo.svg es de color, no necesita filtro */
 }
 
 .footer__desc {
-  font-size: 0.85rem;
-  line-height: 1.7;
-  color: rgba(250, 248, 245, 0.5);
-  max-width: 260px;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: rgba(250, 248, 245, 0.92);
+  max-width: 240px;
 }
 
 .footer__col h4 {
   font-family: var(--font-subtitle);
-  font-size: 0.65rem;
+  font-size: 0.715rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--soft-fawn);
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .footer__col ul li {
-  margin-bottom: 10px;
+  margin-bottom: 7px;
 }
 
 .footer__col ul li a {
-  font-size: 0.85rem;
-  color: rgba(250, 248, 245, 0.5);
+  font-size: 0.924rem;
+  color: rgba(250, 248, 245, 0.92);
   transition: color var(--duration-fast);
 }
 
@@ -975,18 +974,38 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 32px;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 14px 0;
 }
 
 .footer__copy {
-  font-size: 0.75rem;
-  color: rgba(250, 248, 245, 0.3);
-  letter-spacing: 0.05em;
+  font-size: 0.858rem;
+  color: rgba(250, 248, 245, 0.85);
+  letter-spacing: 0.04em;
+}
+
+.footer__credit {
+  font-size: 0.836rem;
+  color: rgba(250, 248, 245, 0.85);
+  letter-spacing: 0.03em;
+  text-align: center;
+  flex: 1;
+}
+
+.footer__credit a {
+  color: var(--soft-fawn);
+  text-decoration: none;
+  transition: color var(--duration-fast);
+}
+
+.footer__credit a:hover {
+  color: var(--pink-mist);
 }
 
 .footer__social {
   display: flex;
-  gap: 20px;
+  gap: 16px;
 }
 
 .footer__social a {
@@ -994,7 +1013,7 @@ p {
   font-size: 0.65rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(250, 248, 245, 0.35);
+  color: rgba(250, 248, 245, 0.85);
   transition: color var(--duration-fast);
 }
 
@@ -1141,10 +1160,6 @@ p {
   color: var(--soft-fawn);
 }
 
-.pink-accent {
-  color: var(--pink-mist);
-}
-
 /* ---- SCROLL PROGRESS BAR ---- */
 .scroll-progress {
   position: fixed;
@@ -1162,9 +1177,7 @@ p {
 @media (max-width: 1024px) {
   .footer__grid {
     grid-template-columns: 1fr 1fr;
-  }
-  .nav-overlay__deco {
-    display: none;
+    gap: 20px;
   }
 }
 
@@ -1174,9 +1187,14 @@ p {
   }
   .footer__grid {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 20px;
   }
-  .nav-overlay__link {
-    font-size: clamp(2rem, 8vw, 3.5rem);
+  .footer__bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 6px;
+  }
+  .footer__credit {
+    order: -1;
   }
 }

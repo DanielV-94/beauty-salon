@@ -258,7 +258,7 @@ function initScrollAnimations() {
         scrollTrigger: {
           trigger: el,
           start: "top 88%",
-          toggleActions: "play none none none",
+          toggleActions: "play none none reset",
         },
       },
     );
@@ -277,7 +277,7 @@ function initScrollAnimations() {
         scrollTrigger: {
           trigger: el,
           start: "top 88%",
-          toggleActions: "play none none none",
+          toggleActions: "play none none reset",
         },
       },
     );
@@ -296,7 +296,7 @@ function initScrollAnimations() {
         scrollTrigger: {
           trigger: el,
           start: "top 88%",
-          toggleActions: "play none none none",
+          toggleActions: "play none none reset",
         },
       },
     );
@@ -315,7 +315,7 @@ function initScrollAnimations() {
         scrollTrigger: {
           trigger: el,
           start: "top 90%",
-          toggleActions: "play none none none",
+          toggleActions: "play none none reset",
         },
       },
     );
@@ -336,7 +336,7 @@ function initScrollAnimations() {
         scrollTrigger: {
           trigger: group,
           start: "top 85%",
-          toggleActions: "play none none none",
+          toggleActions: "play none none reset",
         },
       },
     );
@@ -378,33 +378,14 @@ function initHeroParallax() {
 // ─── ANIMACIÓN HERO DE ENTRADA ────────────────────────────────────────────────
 function initHeroEntrance() {
   // Establecemos estado inicial via JS (no CSS) para robustez
-  gsap.set(".hero__label", { opacity: 0, y: 20 });
   gsap.set(".hero__title", { opacity: 0, y: 60 });
   gsap.set(".hero__subtitle", { opacity: 0, y: 30 });
   gsap.set(".hero__actions", { opacity: 0, y: 20 });
   gsap.set(".hero__scroll-hint", { opacity: 0 });
-  gsap.set(".hero__eyebrow-line", {
-    scaleX: 0,
-    transformOrigin: "left center",
-  });
 
   const tl = gsap.timeline({ delay: 0.15 });
 
-  tl.to(".hero__eyebrow-line", {
-    scaleX: 1,
-    duration: 0.5,
-    ease: "power3.out",
-  })
-    .to(
-      ".hero__label",
-      { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
-      "-=0.2",
-    )
-    .to(
-      ".hero__title",
-      { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
-      "-=0.2",
-    )
+  tl.to(".hero__title", { opacity: 1, y: 0, duration: 1, ease: "power3.out" })
     .to(
       ".hero__subtitle",
       { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" },
@@ -617,7 +598,7 @@ function initDragSlider() {
       scrollTrigger: {
         trigger: ".drag-slider",
         start: "top 75%",
-        toggleActions: "play none none none",
+        toggleActions: "play none none reset",
       },
     },
   );
@@ -755,7 +736,7 @@ function initGallerySticky() {
     start: "top top",
     end: "bottom bottom",
     pin: stickyWrap,
-    pinSpacing: false,
+    pinSpacing: true,
     anticipatePin: 1,
   });
 
@@ -786,6 +767,43 @@ function initGallerySticky() {
   });
 }
 
+// ─── DESTELLOS TESTIMONIOS ────────────────────────────────────────────────────
+function initTestimonialsSparkles() {
+  const section = document.querySelector(".testimonials");
+  if (!section) return;
+
+  const sparks = section.querySelectorAll(".t-spark");
+  if (!sparks.length) return;
+
+  // Estado inicial: invisibles, pequeños
+  gsap.set(sparks, { opacity: 0, scale: 0, rotation: 0 });
+
+  // Entrada escalonada cuando la sección entra en viewport
+  ScrollTrigger.create({
+    trigger: section,
+    start: "top 80%",
+    toggleActions: "play none none reset",
+    onEnter: () => {
+      gsap.to(sparks, {
+        opacity: 1,
+        scale: 1,
+        duration: 0.6,
+        ease: "back.out(1.7)",
+        stagger: { amount: 1.4, from: "random" },
+      });
+    },
+    onLeaveBack: () => {
+      gsap.to(sparks, {
+        opacity: 0,
+        scale: 0,
+        duration: 0.4,
+        ease: "power2.in",
+        stagger: { amount: 0.8, from: "random" },
+      });
+    },
+  });
+}
+
 function initPageAnimations() {
   initNavbar();
   initScrollAnimations();
@@ -797,6 +815,7 @@ function initPageAnimations() {
   initAccordion();
   initImageParallax();
   initGallerySticky();
+  initTestimonialsSparkles();
 }
 
 // ─── ARRANQUE ─────────────────────────────────────────────────────────────────
