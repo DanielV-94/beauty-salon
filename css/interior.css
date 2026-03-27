@@ -167,7 +167,7 @@
 
 .service-detail__intro {
   margin-top: 20px;
-  font-size: 1rem;
+  font-size: 1.2rem;
   line-height: 1.8;
 }
 
@@ -314,13 +314,13 @@
 }
 
 .service-card__body p {
-  font-size: 0.85rem;
+  font-size: 1.02rem;
   color: var(--mid-gray);
   flex: 1;
 }
 
 .service-card__body .btn--ghost {
-  font-size: 0.65rem;
+  font-size: 0.78rem;
   margin-top: auto;
 }
 
@@ -475,7 +475,7 @@
 
 .ubicacion-detail__item p {
   color: var(--charcoal);
-  font-size: 0.95rem;
+  font-size: 1.14rem;
 }
 
 .map-placeholder {
@@ -537,7 +537,7 @@
   border: 1px solid var(--light-gray);
   border-radius: 12px;
   font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-size: 1.08rem;
   color: var(--charcoal);
   background: var(--off-white);
   transition:

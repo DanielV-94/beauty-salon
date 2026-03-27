@@ -59,7 +59,7 @@
   --font-display: "BoilingBlack", serif; /* menú y elementos de impacto */
 
   /* Espaciado */
-  --section-padding: clamp(60px, 10vw, 120px);
+  --section-padding: clamp(32px, 4vw, 60px);
   --container-max: 1280px;
   --container-pad: clamp(20px, 5vw, 80px);
 
@@ -744,7 +744,7 @@ h3,
 
 p {
   font-family: var(--font-body);
-  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  font-size: clamp(1.08rem, 1.8vw, 1.2rem);
   line-height: 1.75;
   color: var(--mid-gray);
 }
@@ -755,7 +755,7 @@ p {
   align-items: center;
   gap: 10px;
   font-family: var(--font-subtitle);
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   padding: 14px 36px;

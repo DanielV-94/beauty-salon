@@ -352,41 +352,41 @@
   ══════════════════════════════════════════ -->
   <section class="about" aria-labelledby="about-title">
     <div class="about__marble" aria-hidden="true"></div>
-    <div class="container">
-      <div class="about__grid">
-        <div class="about__images">
-          <div class="about__img-main reveal-scale">
-            <img src="rsc/png/decor/collage.png" alt="FC Luxe &amp; Beauty — instalaciones y equipo" />
-          </div>
-          <!-- Decoración gold -->
-          <img src="rsc/png/element gold 16.png" alt="" class="about__deco" aria-hidden="true" />
-        </div>
+    <div class="about__grid">
 
-        <div class="about__text">
-          <span class="section-label reveal">Nuestra historia</span>
-          <h2 id="about-title" class="reveal">
-            Belleza que<br />
-            <em class="gold-accent">transforma,</em><br />
-            cuidado que dura
-          </h2>
-          <div class="divider reveal"></div>
-          <p class="reveal">
-            En FC Luxe &amp; Beauty creemos que cada persona merece sentirse
-            extraordinaria. Nuestro salón es un espacio donde la elegancia,
-            el cuidado profesional y la calidez humana se unen para ofrecerte
-            una experiencia única.
-          </p>
-          <p class="reveal mt-sm">
-            Contamos con especialistas certificadas en cada área, productos
-            de primera calidad y un ambiente diseñado para que te sientas
-            como en casa desde el primer momento.
-          </p>
-          <a href="historia.html" class="btn btn--ghost reveal mt-md">
-            Conoce nuestra historia
-            <span class="btn__arrow" aria-hidden="true"></span>
-          </a>
+      <!-- Imagen: sangra hasta el borde izquierdo del viewport -->
+      <div class="about__images">
+        <div class="about__img-main reveal-scale">
+          <img src="rsc/png/decor/collage.png" alt="FC Luxe &amp; Beauty — instalaciones y equipo" />
         </div>
       </div>
+
+      <!-- Texto: queda en el lado derecho con padding normal -->
+      <div class="about__text">
+        <span class="section-label reveal">Nuestra historia</span>
+        <h2 id="about-title" class="reveal">
+          Belleza que<br />
+          <em class="gold-accent">transforma,</em><br />
+          cuidado que dura
+        </h2>
+        <div class="divider reveal"></div>
+        <p class="reveal">
+          En FC Luxe &amp; Beauty creemos que cada persona merece sentirse
+          extraordinaria. Nuestro salón es un espacio donde la elegancia,
+          el cuidado profesional y la calidez humana se unen para ofrecerte
+          una experiencia única.
+        </p>
+        <p class="reveal mt-sm">
+          Contamos con especialistas certificadas en cada área, productos
+          de primera calidad y un ambiente diseñado para que te sientas
+          como en casa desde el primer momento.
+        </p>
+        <a href="historia.html" class="btn btn--ghost reveal mt-md">
+          Conoce nuestra historia
+          <span class="btn__arrow" aria-hidden="true"></span>
+        </a>
+      </div>
+
     </div>
   </section>
 
@@ -394,49 +394,46 @@
        GALERÍA DE RESULTADOS
   ══════════════════════════════════════════ -->
   <section class="gallery" aria-labelledby="gallery-title">
-    <div class="container">
-      <div class="gallery__header reveal">
-        <span class="section-label">Resultados reales</span>
-        <h2 id="gallery-title">Nuestras<br /><em class="gold-accent">clientas</em></h2>
-        <a href="galeria.html" class="btn btn--ghost">
+
+    <!-- Pin target: este wrapper se queda fijo mientras esté en viewport -->
+    <div class="gallery__sticky-wrap">
+
+      <!-- Header centrado -->
+      <div class="gallery__header">
+        <span class="section-label gallery__eyebrow">Resultados reales</span>
+        <h2 id="gallery-title">Nuestras <em class="gold-accent">clientas</em></h2>
+        <p class="gallery__sub">Resultados auténticos. Personas reales. Experiencias que transforman.</p>
+      </div>
+
+      <!-- 3 slots de imagen equidistantes -->
+      <div class="gallery__trio" id="galleryTrio">
+        <div class="gallery__slot" data-slot="0">
+          <div class="gallery__slot-inner">
+            <img class="gallery__slot-img" src="" alt="Clienta FC Luxe &amp; Beauty" />
+          </div>
+        </div>
+        <div class="gallery__slot" data-slot="1">
+          <div class="gallery__slot-inner">
+            <img class="gallery__slot-img" src="" alt="Clienta FC Luxe &amp; Beauty" />
+          </div>
+        </div>
+        <div class="gallery__slot" data-slot="2">
+          <div class="gallery__slot-inner">
+            <img class="gallery__slot-img" src="" alt="Clienta FC Luxe &amp; Beauty" />
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA centrado -->
+      <div class="gallery__footer">
+        <a href="galeria.html" class="btn btn--ghost gallery__cta">
           Ver galería completa
           <span class="btn__arrow" aria-hidden="true"></span>
         </a>
       </div>
-    </div>
 
-    <div class="gallery__grid stagger-group">
-      <div class="gallery-item stagger-item">
-        <img src="rsc/png/clientas (1).png" alt="Resultado cliente 1 — FC Luxe &amp; Beauty" loading="lazy" />
-        <div class="gallery-item__overlay">
-          <span>Faciales</span>
-        </div>
-      </div>
-      <div class="gallery-item stagger-item">
-        <img src="rsc/png/clientas (2).png" alt="Resultado cliente 2 — FC Luxe &amp; Beauty" loading="lazy" />
-        <div class="gallery-item__overlay">
-          <span>Pestañas</span>
-        </div>
-      </div>
-      <div class="gallery-item stagger-item">
-        <img src="rsc/png/clientas (3).png" alt="Resultado cliente 3 — FC Luxe &amp; Beauty" loading="lazy" />
-        <div class="gallery-item__overlay">
-          <span>Colorimetría</span>
-        </div>
-      </div>
-      <div class="gallery-item stagger-item">
-        <img src="rsc/png/clientas (4).png" alt="Resultado cliente 4 — FC Luxe &amp; Beauty" loading="lazy" />
-        <div class="gallery-item__overlay">
-          <span>Manicure</span>
-        </div>
-      </div>
-      <div class="gallery-item stagger-item">
-        <img src="rsc/png/clientas (5).png" alt="Resultado cliente 5 — FC Luxe &amp; Beauty" loading="lazy" />
-        <div class="gallery-item__overlay">
-          <span>Pedicure</span>
-        </div>
-      </div>
-    </div>
+    </div><!-- /.gallery__sticky-wrap -->
+
   </section>
 
   <!-- ══════════════════════════════════════════
