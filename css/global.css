@@ -638,6 +638,9 @@ button {
 .nav-overlay.open .nav-overlay__service-item:nth-child(8) {
   transition-delay: 0.5s;
 }
+.nav-overlay.open .nav-overlay__service-item:nth-child(9) {
+  transition-delay: 0.55s;
+}
 
 .nav-overlay__service-num {
   font-family: var(--font-display);
