@@ -663,6 +663,24 @@ function initImageParallax() {
   });
 }
 
+// ─── PARALLAX HERO INTERIOR (page-hero) ───────────────────────────────────────
+function initPageHeroParallax() {
+  const hero = document.querySelector(".page-hero");
+  const img = document.querySelector(".page-hero__bg img");
+  if (!hero || !img) return;
+
+  gsap.to(img, {
+    yPercent: 20,
+    ease: "none",
+    scrollTrigger: {
+      trigger: hero,
+      start: "top top",
+      end: "bottom top",
+      scrub: true,
+    },
+  });
+}
+
 // ─── INICIALIZACIÓN PRINCIPAL ─────────────────────────────────────────────────
 // ─── GALERÍA STICKY — PIN + ROTACIÓN FADE ──────────────────────────────────────
 function initGallerySticky() {
@@ -814,6 +832,7 @@ function initPageAnimations() {
   initDragSlider();
   initAccordion();
   initImageParallax();
+  initPageHeroParallax();
   initGallerySticky();
   initTestimonialsSparkles();
 }

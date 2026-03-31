@@ -15,9 +15,9 @@
   <div class="cursor-dot" aria-hidden="true"></div>
   <div class="cursor-ring" aria-hidden="true"></div>
   <div class="scroll-progress" aria-hidden="true"></div>
-  <nav class="navbar">
+  <nav class="navbar navbar--dark" aria-label="Navegación principal">
     <div class="navbar__left">
-      <button class="navbar__menu-btn" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+      <button class="navbar__menu-btn" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
     <a href="../index.html" class="navbar__logo-wrap"><img src="../rsc/logo.svg" alt="FC Luxe &amp; Beauty"
         class="navbar__logo" /></a>
@@ -34,15 +34,15 @@
         <div class="nav-overlay__brand"><span class="nav-overlay__brand-title">MENÚ</span></div>
         <nav class="nav-overlay__nav-links">
           <a href="../index.html" class="nav-overlay__nav-link">/ Home</a>
-          <a href="../historia.html" class="nav-overlay__nav-link">/ Nuestra Historia</a>
-          <a href="../galeria.html" class="nav-overlay__nav-link">/ Galería</a>
-          <a href="../ubicacion.html" class="nav-overlay__nav-link">/ Ubicación</a>
+          <a href="#" data-disabled="true" class="nav-overlay__nav-link">/ Nuestra Historia</a>
+          <a href="#" data-disabled="true" class="nav-overlay__nav-link">/ Galería</a>
+          <a href="#" data-disabled="true" class="nav-overlay__nav-link">/ Ubicación</a>
         </nav>
         <div class="nav-overlay__booking">
           <p class="nav-overlay__booking-label">Reservaciones</p>
           <a href="https://wa.me/523222024062" class="nav-overlay__booking-link" target="_blank" rel="noopener">/ Vía
             WhatsApp</a>
-          <a href="../contacto.html" class="nav-overlay__booking-link">/ Contáctanos</a>
+          <a href="#" data-disabled="true" class="nav-overlay__booking-link">/ Contáctanos</a>
         </div>
         <div class="nav-overlay__bottom">
           <div class="nav-overlay__social">
@@ -78,9 +78,9 @@
       <!-- COL 3: Imagen de preview al hover sobre servicio -->
       <div class="nav-overlay__col nav-overlay__col--preview">
         <div class="nav-overlay__preview-wrap">
-          <img src="../rsc/png/decor/u%C3%B1as.png" alt="Manicure" class="nav-overlay__preview-img" data-service="manicure" />
+          <img src="../rsc/png/decor/uñas.png" alt="Manicure" class="nav-overlay__preview-img" data-service="manicure" />
           <img src="../rsc/png/decor/pedi.png" alt="Pedicure" class="nav-overlay__preview-img" data-service="pedicure" />
-          <img src="../rsc/png/decor/lashes.png" alt="Extensiones de Pestanas" class="nav-overlay__preview-img" data-service="pestanas" />
+          <img src="../rsc/png/decor/lashes.png" alt="Extensiones de Pestañas" class="nav-overlay__preview-img" data-service="pestanas" />
           <img src="../rsc/png/decor/extensiones.png" alt="Extensiones de Cabello" class="nav-overlay__preview-img" data-service="extensiones" />
           <img src="../rsc/png/decor/faciales.png" alt="Faciales" class="nav-overlay__preview-img" data-service="faciales" />
           <img src="../rsc/png/decor/masajes.png" alt="Masajes" class="nav-overlay__preview-img" data-service="masajes" />
@@ -158,22 +158,22 @@
         class="btn btn--pink mt-md">Agendar ahora</a>
     </div>
   </section>
-  <footer class="footer">
+  <footer class="footer" aria-label="Pie de página">
     <div class="container">
       <div class="footer__grid">
-        <div class="footer__brand"><img src="../rsc/logo.png" alt="FC Luxe &amp; Beauty" class="footer__logo" />
-          <p class="footer__desc">Un espacio de lujo dedicado a realzar tu belleza natural.</p>
+        <div class="footer__brand"><img src="../rsc/logo.svg" alt="FC Luxe &amp; Beauty" class="footer__logo" />
+          <p class="footer__desc">Un espacio de lujo dedicado a realzar tu belleza natural. Donde cada detalle cuenta.</p>
         </div>
         <div class="footer__col">
           <h4>Servicios</h4>
           <ul>
             <li><a href="manicure.html">Manicure</a></li>
             <li><a href="pedicure.html">Pedicure</a></li>
-            <li><a href="extensiones.html">Extensiones</a></li>
+            <li><a href="extensiones.html">Extensiones de Cabello</a></li>
             <li><a href="masajes.html">Masajes</a></li>
             <li><a href="faciales.html">Faciales</a></li>
             <li><a href="alisado.html">Alisado</a></li>
-            <li><a href="pestanas.html">Pestañas</a></li>
+            <li><a href="pestanas.html">Extensiones de Pestañas</a></li>
             <li><a href="colorimetria.html">Colorimetría</a></li>
           </ul>
         </div>
@@ -181,25 +181,27 @@
           <h4>Navegación</h4>
           <ul>
             <li><a href="../index.html">Home</a></li>
-            <li><a href="../servicios.html">Servicios</a></li>
-            <li><a href="../historia.html">Nuestra Historia</a></li>
-            <li><a href="../galeria.html">Galería</a></li>
-            <li><a href="../ubicacion.html">Ubicación</a></li>
-            <li><a href="../contacto.html">Contacto</a></li>
+            <li><a href="#" data-disabled="true">Servicios</a></li>
+            <li><a href="#" data-disabled="true">Nuestra Historia</a></li>
+            <li><a href="#" data-disabled="true">Galería</a></li>
+            <li><a href="#" data-disabled="true">Ubicación</a></li>
+            <li><a href="#" data-disabled="true">Contacto</a></li>
           </ul>
         </div>
         <div class="footer__col">
           <h4>Contacto</h4>
           <ul>
-            <li><a href="https://wa.me/523222024062" target="_blank" rel="noopener">WhatsApp</a></li>
+            <li><a href="https://wa.me/523222024062" target="_blank" rel="noopener">WhatsApp: +52 322 202 4062</a></li>
             <li><a href="mailto:cergal.air30@gmail.com">cergal.air30@gmail.com</a></li>
+            <li><a href="#" data-disabled="true">Valle de Arce #143, Local 4, Col. Valle Dorado, Bahía de Banderas, Nayarit</a></li>
+            <li style="color:rgba(250,248,245,0.3);font-size:0.8rem;margin-top:8px;">Lun – Sáb: 9:00 – 19:00</li>
           </ul>
         </div>
       </div>
       <div class="footer__bottom">
-        <p class="footer__copy">© 2026 FC Luxe &amp; Beauty.</p>
-        <div class="footer__social"><a href="https://www.instagram.com/fcluxespabeauty" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/share/17sydFnecK/" target="_blank"
-            rel="noopener">Facebook</a></div>
+        <p class="footer__copy">&copy; 2026 FC Luxe &amp; Beauty. Todos los derechos reservados.</p>
+        <p class="footer__credit">Diseñado &amp; Desarrollado por <a href="https://www.danielvelez-webdev.com" target="_blank" rel="noopener">Daniel Velez</a></p>
+        <div class="footer__social"><a href="https://www.instagram.com/fcluxespabeauty" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/share/17sydFnecK/" target="_blank" rel="noopener">Facebook</a></div>
       </div>
     </div>
   </footer>
@@ -210,3 +212,9 @@
 </body>
 
 </html>
+
+
+
+
+
+
