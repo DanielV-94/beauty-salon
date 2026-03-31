@@ -480,6 +480,23 @@
 .historia-section {
   padding: var(--section-padding) 0;
   background: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+
+.historia-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("../rsc/png/decor/084.png") center center / cover no-repeat;
+  opacity: 0.1;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.historia-section > .container {
+  position: relative;
+  z-index: 1;
 }
 
 .historia-grid {
@@ -524,24 +541,84 @@
 }
 
 .valor-card {
-  background: var(--white);
-  border-radius: 20px;
+  position: relative;
+  background: rgba(255, 255, 255, 0.38);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border-radius: 28px;
   padding: 36px 28px;
-  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  box-shadow:
+    0 8px 32px rgba(237, 92, 155, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(237, 92, 155, 0.08);
+  overflow: hidden;
   transition:
     transform var(--duration-mid) var(--ease-luxury),
-    box-shadow var(--duration-mid);
+    box-shadow var(--duration-mid),
+    background var(--duration-mid);
+}
+
+/* Reflejo especular superior izquierdo */
+.valor-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0.08) 60%,
+    transparent 100%
+  );
+  border-radius: 28px 28px 0 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Borde inferior con tinte rosa */
+.valor-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 12%;
+  right: 12%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(237, 92, 155, 0.35),
+    transparent
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.valor-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 .valor-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-float);
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.52);
+  box-shadow:
+    0 20px 48px rgba(237, 92, 155, 0.16),
+    0 6px 16px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(237, 92, 155, 0.12);
 }
 
 .valor-card__icon {
   width: 48px;
   height: 48px;
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .valor-card h3 {
