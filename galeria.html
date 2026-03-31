@@ -8,94 +8,111 @@
   <title>Galería — FC Luxe & Beauty</title>
   <link rel="stylesheet" href="css/global.css" />
   <link rel="stylesheet" href="css/interior.css" />
-  <link rel="icon" href="rsc/logo.png" type="image/png" />
+  <link rel="icon" href="rsc/logo2.png" type="image/png" />
   <style>
-    .gallery-page__filters {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-bottom: 60px
-    }
-
-    .filter-btn {
-      font-family: var(--font-subtitle);
-      font-size: .75rem;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      padding: 10px 24px;
-      border-radius: 100px;
-      border: 1px solid var(--soft-fawn);
-      background: transparent;
-      color: var(--charcoal);
-      cursor: pointer;
-      transition: all .3s var(--ease-out)
-    }
-
-    .filter-btn.active,
-    .filter-btn:hover {
-      background: var(--soft-fawn);
-      color: var(--charcoal)
-    }
-
-    .gallery-page__grid {
-      columns: 3;
-      gap: 20px;
-      column-gap: 20px
-    }
-
-    .gallery-page__grid .gallery-item {
-      break-inside: avoid;
-      margin-bottom: 20px;
+    /* ── GALERÍA: fondo + layout editorial ── */
+    .gallery-page {
       position: relative;
       overflow: hidden;
-      border-radius: 4px
+      background: transparent;
     }
 
-    .gallery-page__grid .gallery-item img {
+    .gallery-page::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: url("rsc/png/decor/088.png") center center / cover no-repeat;
+      opacity: 0.06;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .gallery-page > .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Encabezado de sección ── */
+    .gallery-page__header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .gallery-page__header h2 {
+      font-family: var(--font-title);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: var(--charcoal);
+      margin-top: 12px;
+    }
+
+    .gallery-page__header p {
+      margin-top: 14px;
+      color: var(--mid-gray);
+      font-size: 1.05rem;
+      max-width: 440px;
+      margin-inline: auto;
+    }
+
+    /* ── Grid masonry editorial ── */
+    .gallery-masonry {
+      columns: 3;
+      column-gap: 16px;
+    }
+
+    .gallery-masonry .g-item {
+      break-inside: avoid;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.10);
+      cursor: none;
+    }
+
+    .gallery-masonry .g-item img {
       width: 100%;
       height: auto;
       display: block;
-      transition: transform .8s var(--ease-out)
+      transition: transform 0.75s var(--ease-out);
     }
 
-    .gallery-page__grid .gallery-item:hover img {
-      transform: scale(1.06)
+    .gallery-masonry .g-item:hover img {
+      transform: scale(1.04);
     }
 
-    .gallery-page__grid .gallery-item__overlay {
+    /* Overlay sutil al hover */
+    .gallery-masonry .g-item::after {
+      content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, transparent 50%, rgba(220, 144, 174, .5) 100%);
+      background: linear-gradient(
+        180deg,
+        transparent 55%,
+        rgba(146, 25, 71, 0.38) 100%
+      );
       opacity: 0;
-      transition: opacity .4s;
-      display: flex;
-      align-items: flex-end;
-      padding: 20px
+      transition: opacity 0.4s;
     }
 
-    .gallery-page__grid .gallery-item:hover .gallery-item__overlay {
-      opacity: 1
+    .gallery-masonry .g-item:hover::after {
+      opacity: 1;
     }
 
-    .gallery-item__label {
-      font-family: var(--font-subtitle);
-      font-size: .7rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: #fff
+    /* Separador decorativo entre bloques */
+    .gallery-divider {
+      width: 60px;
+      height: 1px;
+      background: var(--pink-mist);
+      margin: 56px auto;
+      opacity: 0.5;
     }
 
-    @media(max-width:768px) {
-      .gallery-page__grid {
-        columns: 2
-      }
+    @media (max-width: 1024px) {
+      .gallery-masonry { columns: 2; }
     }
 
-    @media(max-width:480px) {
-      .gallery-page__grid {
-        columns: 1
-      }
+    @media (max-width: 480px) {
+      .gallery-masonry { columns: 1; }
     }
   </style>
 </head>
@@ -195,7 +212,7 @@
   </div>
 
   <header class="page-hero reveal-scale">
-    <div class="page-hero__bg"><img src="rsc/png/clientas(1).png" alt="" aria-hidden="true" />
+    <div class="page-hero__bg"><img src="rsc/png/modelos/modelos (9).png" alt="" aria-hidden="true" />
       <div class="page-hero__overlay"></div>
     </div>
     <div class="container page-hero__content">
@@ -205,65 +222,183 @@
     </div>
   </header>
 
-  <section class="gallery-page" style="padding:100px 0;">
+  <section class="gallery-page" style="padding: 100px 0; background-color: var(--off-white);">
     <div class="container">
-      <div class="gallery-page__filters reveal">
-        <button class="filter-btn active" data-filter="all">Todo</button>
-        <button class="filter-btn" data-filter="uñas">Uñas</button>
-        <button class="filter-btn" data-filter="cabello">Cabello</button>
-        <button class="filter-btn" data-filter="piel">Piel &amp; Rostro</button>
-        <button class="filter-btn" data-filter="lashes">Pestañas</button>
+
+      <div class="gallery-page__header reveal">
+        <span class="section-label">FC Luxe &amp; Beauty</span>
+        <h2>Momentos de <em class="gold-accent">Transformación</em></h2>
+        <p>Cada imagen es el reflejo de nuestra dedicación y pasión por la belleza.</p>
       </div>
 
-      <div class="gallery-page__grid reveal">
-        <div class="gallery-item" data-category="uñas">
-          <img src="rsc/png/modelo1.png" alt="Manicure artístico FC Luxe" />
-          <div class="gallery-item__overlay"><span class="gallery-item__label">Manicure</span></div>
+      <div class="gallery-masonry reveal">
+
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (1).png" alt="FC Luxe Beauty" loading="lazy" />
         </div>
-        <div class="gallery-item" data-category="cabello">
-          <img src="rsc/png/extensiones(1).jpeg" alt="Extensiones de cabello" />
-          <div class="gallery-item__overlay"><span class="gallery-item__label">Extensiones</span></div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (3).png" alt="FC Luxe Beauty" loading="lazy" />
         </div>
-        <div class="gallery-item" data-category="piel">
-          <img src="rsc/png/clientas(1).png" alt="Tratamiento facial" />
-          <div class="gallery-item__overlay"><span class="gallery-item__label">Facial</span></div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (5).png" alt="FC Luxe Beauty" loading="lazy" />
         </div>
-        <div class="gallery-item" data-category="lashes">
-          <img src="rsc/png/clientas(2).png" alt="Pestañas volumen ruso" />
-          <div class="gallery-item__overlay"><span class="gallery-item__label">Pestañas</span></div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (7).png" alt="FC Luxe Beauty" loading="lazy" />
         </div>
-        <div class="gallery-item" data-category="cabello">
-          <img src="rsc/png/extensiones(2).jpeg" alt="Alisado brasileño" />
-          <div class="gallery-item__overlay"><span class="gallery-item__label">Alisado</span></div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (8).png" alt="FC Luxe Beauty" loading="lazy" />
         </div>
-        <div class="gallery-item" data-category="piel">
-          <img src="rsc/png/clientas(3).png" alt="Colorimetría profesional" />
-          <div class="gallery-item__overlay"><span class="gallery-item__label">Colorimetría</span></div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (12).png" alt="FC Luxe Beauty" loading="lazy" />
         </div>
-        <div class="gallery-item" data-category="uñas">
-          <img src="rsc/png/models.png" alt="Pedicure spa" />
-          <div class="gallery-item__overlay"><span class="gallery-item__label">Pedicure</span></div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (10).png" alt="FC Luxe Beauty" loading="lazy" />
         </div>
-        <div class="gallery-item" data-category="piel">
-          <img src="rsc/png/golden.png" alt="Masajes relajantes" style="object-fit:cover;height:360px" />
-          <div class="gallery-item__overlay"><span class="gallery-item__label">Masajes</span></div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (1).png" alt="FC Luxe Beauty" loading="lazy" />
         </div>
-        <div class="gallery-item" data-category="cabello">
-          <img src="rsc/png/modelo grande.png" alt="FC Luxe &amp; Beauty — Transformación" />
-          <div class="gallery-item__overlay"><span class="gallery-item__label">Look completo</span></div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (14).png" alt="FC Luxe Beauty" loading="lazy" />
         </div>
-        <div class="gallery-item" data-category="lashes">
-          <img src="rsc/png/clientas(4).png" alt="Tratamiento de pestañas" />
-          <div class="gallery-item__overlay"><span class="gallery-item__label">Pestañas</span></div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (15).png" alt="FC Luxe Beauty" loading="lazy" />
         </div>
-        <div class="gallery-item" data-category="piel">
-          <img src="rsc/png/clientas(5).png" alt="Clienta satisfecha" />
-          <div class="gallery-item__overlay"><span class="gallery-item__label">Satisfacción</span></div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (16).png" alt="FC Luxe Beauty" loading="lazy" />
         </div>
-        <div class="gallery-item" data-category="uñas">
-          <img src="rsc/png/instalacion (1).jpeg" alt="Instalaciones FC Luxe" />
-          <div class="gallery-item__overlay"><span class="gallery-item__label">Nuestro espacio</span></div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (19).png" alt="FC Luxe Beauty" loading="lazy" />
         </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (18).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (22).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (20).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (25).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (22).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (9).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (25).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (4).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (27).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (11).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (29).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (16).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (31).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (20).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (33).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (23).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (35).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (26).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (37).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (2).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (38).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (5).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (6).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (8).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (9).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (10).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (11).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (13).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (12).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (14).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (15).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (17).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (21).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (18).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (23).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (21).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (26).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/clientas/clientas (24).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (28).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (30).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (32).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (34).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+        <div class="g-item">
+          <img src="rsc/png/fernanda/fer (36).png" alt="FC Luxe Beauty" loading="lazy" />
+        </div>
+
       </div>
     </div>
   </section>
@@ -335,24 +470,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/TextPlugin.min.js"></script>
   <script src="js/main.js"></script>
-  <script>
-    // Filtro de galería
-    document.addEventListener('DOMContentLoaded', () => {
-      const btns = document.querySelectorAll('.filter-btn');
-      const items = document.querySelectorAll('.gallery-item');
-      btns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          btns.forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          const filter = btn.dataset.filter;
-          items.forEach(item => {
-            const show = filter === 'all' || item.dataset.category === filter;
-            gsap.to(item, { opacity: show ? 1 : 0.15, scale: show ? 1 : 0.96, duration: 0.4, ease: 'power2.out' });
-          });
-        });
-      });
-    });
-  </script>
+
 </body>
 
 </html>
