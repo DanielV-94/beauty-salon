@@ -81,26 +81,6 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-/* ── EYEBROW LABEL en el hero — pill con degradado ─────────────── */
-.page-hero__content .section-label {
-  display: inline-block;
-  padding: 5px 16px;
-  background: linear-gradient(
-    110deg,
-    rgba(17, 17, 17, 0.72) 0%,
-    rgba(146, 25, 71, 0.52) 100%
-  );
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 100px;
-  color: rgba(255, 255, 255, 0.92) !important;
-  text-shadow: none;
-  box-shadow:
-    0 4px 16px rgba(0, 0, 0, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
 /* ── BREADCRUMB ───────────────────────── */
 .breadcrumb {
   padding: 20px 0;
@@ -457,23 +437,10 @@
   font-style: italic;
 }
 
-/* ── GALERÍA INTERIOR ─────────────────── */
+/* ── GALERIA INTERIOR ─────────────── */
 .gallery-page {
   background: var(--off-white);
   padding: var(--section-padding) 0;
-}
-
-.gallery-page__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 48px;
-}
-
-.gallery-page__grid .gallery-item {
-  aspect-ratio: 4/5;
-  border-radius: 16px;
-  overflow: hidden;
 }
 
 /* ── HISTORIA ─────────────────────────── */
@@ -628,128 +595,6 @@
   margin-bottom: 10px;
 }
 
-/* ── UBICACIÓN ────────────────────────── */
-.ubicacion-section {
-  padding: var(--section-padding) 0;
-  background: var(--white);
-}
-
-.ubicacion-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(40px, 6vw, 80px);
-  align-items: start;
-}
-
-.ubicacion-info h2 {
-  margin-bottom: 32px;
-}
-
-.ubicacion-info h2 em {
-  font-style: italic;
-}
-
-.ubicacion-detail {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  margin-bottom: 40px;
-}
-
-.ubicacion-detail__item h4 {
-  font-family: var(--font-subtitle);
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--pink-mist);
-  margin-bottom: 6px;
-}
-
-.ubicacion-detail__item p {
-  color: var(--charcoal);
-  font-size: 1.14rem;
-}
-
-.map-placeholder {
-  border-radius: 20px;
-  overflow: hidden;
-  background: var(--light-gray);
-  height: 420px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--shadow-card);
-}
-
-.map-placeholder span {
-  font-family: var(--font-subtitle);
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--mid-gray);
-}
-
-/* ── CONTACTO ─────────────────────────── */
-.contacto-section {
-  padding: var(--section-padding) 0;
-  background: var(--white);
-}
-
-.contacto-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(40px, 6vw, 80px);
-  align-items: start;
-}
-
-.contacto-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.form-group label {
-  font-family: var(--font-subtitle);
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--charcoal);
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
-  padding: 14px 18px;
-  border: 1px solid var(--light-gray);
-  border-radius: 12px;
-  font-family: var(--font-body);
-  font-size: 1.08rem;
-  color: var(--charcoal);
-  background: var(--off-white);
-  transition:
-    border-color var(--duration-fast),
-    box-shadow var(--duration-fast);
-  outline: none;
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-  border-color: var(--pink-mist);
-  box-shadow: 0 0 0 3px rgba(220, 144, 174, 0.15);
-}
-
-.form-group textarea {
-  min-height: 120px;
-  resize: vertical;
-}
-
 /* ── RESPONSIVE ───────────────────────── */
 @media (max-width: 1024px) {
   .services-full-grid {
@@ -759,23 +604,30 @@
   .service-card {
     grid-template-columns: 180px 1fr;
   }
+
   .service-detail__grid,
-  .historia-grid,
-  .ubicacion-grid,
-  .contacto-grid {
+  .historia-grid {
     grid-template-columns: 1fr;
   }
+
   .historia-grid.reverse {
     direction: ltr;
   }
+
+  .historia-img img {
+    height: 360px;
+  }
+
   .service-detail__text {
     position: static;
   }
+
   .valores-grid {
     grid-template-columns: 1fr 1fr;
   }
-  .gallery-page__grid {
-    grid-template-columns: repeat(2, 1fr);
+
+  .interior-cta {
+    padding: clamp(48px, 6vw, 72px) 0;
   }
 }
 
@@ -794,13 +646,37 @@
     min-height: 200px;
     height: 200px;
   }
+
+  .service-detail__img-main img {
+    height: 320px;
+  }
+
+  .service-detail__img-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .service-detail__img-secondary img {
+    height: 150px;
+  }
+
+  .historia-img img {
+    height: 260px;
+  }
+
   .valores-grid {
     grid-template-columns: 1fr;
   }
-  .gallery-page__grid {
-    grid-template-columns: 1fr;
-  }
+
   .page-hero {
     height: 50vh;
+    min-height: 360px;
+  }
+
+  .interior-cta {
+    padding: 40px 0;
+  }
+
+  .interior-cta__content {
+    padding: 24px 20px;
   }
 }
