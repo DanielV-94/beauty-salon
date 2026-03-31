@@ -667,10 +667,11 @@ function initImageParallax() {
 function initPageHeroParallax() {
   const hero = document.querySelector(".page-hero");
   const img = document.querySelector(".page-hero__bg img");
+  const content = document.querySelector(".page-hero__content");
   if (!hero || !img) return;
 
   gsap.to(img, {
-    yPercent: 20,
+    yPercent: 14,
     ease: "none",
     scrollTrigger: {
       trigger: hero,
@@ -679,6 +680,59 @@ function initPageHeroParallax() {
       scrub: true,
     },
   });
+
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  const finePointer = window.matchMedia("(pointer: fine)").matches;
+
+  if (reduceMotion || !finePointer) return;
+
+  const imgXTo = gsap.quickTo(img, "x", {
+    duration: 0.65,
+    ease: "power3.out",
+  });
+  const imgYTo = gsap.quickTo(img, "y", {
+    duration: 0.65,
+    ease: "power3.out",
+  });
+
+  const contentXTo = content
+    ? gsap.quickTo(content, "x", {
+        duration: 0.8,
+        ease: "power3.out",
+      })
+    : null;
+
+  const contentYTo = content
+    ? gsap.quickTo(content, "y", {
+        duration: 0.8,
+        ease: "power3.out",
+      })
+    : null;
+
+  const onMove = (e) => {
+    const rect = hero.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+
+    imgXTo(px * 28);
+    imgYTo(py * 22);
+
+    if (contentXTo) contentXTo(px * -10);
+    if (contentYTo) contentYTo(py * -8);
+  };
+
+  const reset = () => {
+    imgXTo(0);
+    imgYTo(0);
+    if (contentXTo) contentXTo(0);
+    if (contentYTo) contentYTo(0);
+  };
+
+  hero.addEventListener("mousemove", onMove);
+  hero.addEventListener("mouseleave", reset);
+  window.addEventListener("blur", reset);
 }
 
 // ─── INICIALIZACIÓN PRINCIPAL ─────────────────────────────────────────────────
