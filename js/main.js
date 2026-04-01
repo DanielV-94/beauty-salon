@@ -2156,6 +2156,95 @@ function initPageHeroParallax() {
   window.addEventListener("blur", reset);
 }
 
+function imageExists(src) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false);
+    img.src = src;
+  });
+}
+
+async function getSequentialImages({
+  folder,
+  prefix,
+  max = 120,
+  stopAfterMisses = 8,
+}) {
+  const found = [];
+  let misses = 0;
+
+  for (let i = 1; i <= max && misses < stopAfterMisses; i++) {
+    const src = `rsc/png/${folder}/${prefix} (${i}).png`;
+    if (await imageExists(src)) {
+      found.push(src);
+      misses = 0;
+    } else {
+      misses += 1;
+    }
+  }
+
+  return found;
+}
+
+function interleaveArrays(a, b) {
+  const output = [];
+  const maxLength = Math.max(a.length, b.length);
+
+  for (let i = 0; i < maxLength; i++) {
+    if (a[i]) output.push(a[i]);
+    if (b[i]) output.push(b[i]);
+  }
+
+  return output;
+}
+
+function getImageNumericIndex(src) {
+  const match = src.match(/\((\d+)\)\.png$/);
+  return match ? Number(match[1]) : 0;
+}
+
+function orderGalleryImages(images, mode = "latest-first") {
+  const ordered = [...images];
+
+  if (mode === "latest-first") {
+    ordered.sort((a, b) => getImageNumericIndex(b) - getImageNumericIndex(a));
+  } else if (mode === "oldest-first") {
+    ordered.sort((a, b) => getImageNumericIndex(a) - getImageNumericIndex(b));
+  }
+
+  return ordered;
+}
+
+async function initAutoGalleryMasonry() {
+  const masonry = document.querySelector(
+    '.gallery-masonry[data-auto-gallery="true"]',
+  );
+  if (!masonry || masonry.dataset.rendered === "true") return;
+  const orderMode = masonry.dataset.galleryOrder || "latest-first";
+
+  const [fernandaImages, clientasImages] = await Promise.all([
+    getSequentialImages({ folder: "fernanda", prefix: "fer" }),
+    getSequentialImages({ folder: "clientas", prefix: "clientas" }),
+  ]);
+
+  const orderedFernanda = orderGalleryImages(fernandaImages, orderMode);
+  const orderedClientas = orderGalleryImages(clientasImages, orderMode);
+
+  const orderedImages = interleaveArrays(orderedFernanda, orderedClientas);
+  if (!orderedImages.length) return;
+
+  masonry.innerHTML = orderedImages
+    .map(
+      (src) =>
+        `<div class="g-item"><img src="${src}" alt="FC Luxe Beauty" loading="lazy" /></div>`,
+    )
+    .join("");
+
+  masonry.dataset.rendered = "true";
+  ScrollTrigger.refresh();
+}
+
 // ─── INICIALIZACIÓN PRINCIPAL ─────────────────────────────────────────────────
 // ─── GALERÍA STICKY — PIN + ROTACIÓN FADE ──────────────────────────────────────
 function initGallerySticky() {
@@ -2164,100 +2253,110 @@ function initGallerySticky() {
   const slots = document.querySelectorAll(".gallery__slot-img");
   if (!section || !stickyWrap || !slots.length) return;
 
-  // 26 imágenes disponibles (clientas 1–26)
-  const total = 26;
-  const allImages = Array.from(
-    { length: total },
+  const fallbackImages = Array.from(
+    { length: 32 },
     (_, i) => `rsc/png/clientas/clientas (${i + 1}).png`,
   );
 
-  // Baraja el array con Fisher-Yates
-  function shuffle(arr) {
-    const a = [...arr];
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
+  const bootStickyGallery = async () => {
+    const discoveredClientImages = await getSequentialImages({
+      folder: "clientas",
+      prefix: "clientas",
+    });
+    const allImages = discoveredClientImages.length
+      ? discoveredClientImages
+      : fallbackImages;
+
+    // Baraja el array con Fisher-Yates
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
     }
-    return a;
-  }
 
-  // Genera grupos de 3 sin repetir las del turno anterior
-  let lastThree = [];
-  function nextGroup() {
-    const pool = allImages.filter((s) => !lastThree.includes(s));
-    const shuffled = shuffle(pool);
-    const group = shuffled.slice(0, 3);
-    lastThree = group;
-    return group;
-  }
+    // Genera grupos de 3 sin repetir las del turno anterior
+    let lastThree = [];
+    function nextGroup() {
+      const pool = allImages.filter((s) => !lastThree.includes(s));
+      const shuffled = shuffle(pool);
+      const group = shuffled.slice(0, 3);
+      lastThree = group;
+      return group;
+    }
 
-  // Aplica un grupo de imágenes con fade GSAP
-  function applyGroup(group) {
-    const tl = gsap.timeline();
-    // Fade out de las imágenes actuales
-    tl.to(slots, {
-      opacity: 0,
-      duration: 0.55,
-      ease: "power2.inOut",
-      stagger: 0.08,
-    });
-    // Cambia src y hace fade in
-    tl.call(() => {
-      slots.forEach((img, i) => {
-        img.src = group[i] || "";
+    // Aplica un grupo de imágenes con fade GSAP
+    function applyGroup(group) {
+      const tl = gsap.timeline();
+      // Fade out de las imágenes actuales
+      tl.to(slots, {
+        opacity: 0,
+        duration: 0.55,
+        ease: "power2.inOut",
+        stagger: 0.08,
       });
+      // Cambia src y hace fade in
+      tl.call(() => {
+        slots.forEach((img, i) => {
+          img.src = group[i] || "";
+        });
+      });
+      tl.to(slots, {
+        opacity: 1,
+        duration: 0.65,
+        ease: "power2.out",
+        stagger: 0.1,
+      });
+      return tl;
+    }
+
+    // Carga el primer grupo inmediatamente (sin animación)
+    const first = nextGroup();
+    slots.forEach((img, i) => {
+      img.src = first[i] || "";
+      gsap.set(img, { opacity: 1 });
     });
-    tl.to(slots, {
-      opacity: 1,
-      duration: 0.65,
-      ease: "power2.out",
-      stagger: 0.1,
+
+    // ── PIN con ScrollTrigger ──────────────────────────────────────────────────
+    ScrollTrigger.create({
+      trigger: section,
+      start: "top top",
+      end: "bottom bottom",
+      pin: stickyWrap,
+      pinSpacing: true,
+      anticipatePin: 1,
     });
-    return tl;
-  }
 
-  // Carga el primer grupo inmediatamente (sin animación)
-  const first = nextGroup();
-  slots.forEach((img, i) => {
-    img.src = first[i] || "";
-    gsap.set(img, { opacity: 1 });
-  });
+    // ── Rotación automática cada 3.5 s ────────────────────────────────────────
+    let rotationInterval = null;
 
-  // ── PIN con ScrollTrigger ──────────────────────────────────────────────────
-  ScrollTrigger.create({
-    trigger: section,
-    start: "top top",
-    end: "bottom bottom",
-    pin: stickyWrap,
-    pinSpacing: true,
-    anticipatePin: 1,
-  });
+    function startRotation() {
+      if (rotationInterval) return;
+      rotationInterval = setInterval(() => {
+        applyGroup(nextGroup());
+      }, 3500);
+    }
 
-  // ── Rotación automática cada 3.5 s ────────────────────────────────────────
-  let rotationInterval = null;
+    function stopRotation() {
+      clearInterval(rotationInterval);
+      rotationInterval = null;
+    }
 
-  function startRotation() {
-    if (rotationInterval) return;
-    rotationInterval = setInterval(() => {
-      applyGroup(nextGroup());
-    }, 3500);
-  }
+    // Arranca/para la rotación cuando la sección entra/sale del viewport
+    ScrollTrigger.create({
+      trigger: section,
+      start: "top 90%",
+      end: "bottom 10%",
+      onEnter: startRotation,
+      onLeave: stopRotation,
+      onEnterBack: startRotation,
+      onLeaveBack: stopRotation,
+    });
+  };
 
-  function stopRotation() {
-    clearInterval(rotationInterval);
-    rotationInterval = null;
-  }
-
-  // Arranca/para la rotación cuando la sección entra/sale del viewport
-  ScrollTrigger.create({
-    trigger: section,
-    start: "top 90%",
-    end: "bottom 10%",
-    onEnter: startRotation,
-    onLeave: stopRotation,
-    onEnterBack: startRotation,
-    onLeaveBack: stopRotation,
-  });
+  bootStickyGallery();
 }
 
 // ─── DESTELLOS TESTIMONIOS ────────────────────────────────────────────────────
@@ -2300,6 +2399,7 @@ function initTestimonialsSparkles() {
 function initPageAnimations() {
   initNavbar();
   initScrollAnimations();
+  initAutoGalleryMasonry();
   initHeroParallax();
   initHeroEntrance();
   initCounters();
