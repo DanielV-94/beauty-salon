@@ -1,5 +1,5 @@
 /**
- * FC LUXE & BEAUTY — Main JavaScript
+ * FC LUXE SPA & BEAUTY — Main JavaScript
  * Skills: antigravity-design-expert + frontend-design
  * Animations: GSAP + ScrollTrigger + Custom Cursor
  */
@@ -108,7 +108,7 @@ const COMMON_TRANSLATIONS = [
     "aria-label": "Open menu",
   }),
   attrOp("common:logoAria", ".navbar__logo-wrap", {
-    "aria-label": "FC Luxe & Beauty home",
+    "aria-label": "FC LUXE SPA & BEAUTY home",
   }),
   textOp("common:navbarCta", ".navbar__cta", "Book now"),
   attrOp("common:overlayAria", ".nav-overlay", {
@@ -179,7 +179,7 @@ const COMMON_TRANSLATIONS = [
   textOp(
     "common:footerCopy",
     ".footer__copy",
-    "© 2026 FC Luxe & Beauty. All rights reserved.",
+    "© 2026 FC LUXE SPA & BEAUTY. All rights reserved.",
   ),
   htmlOp(
     "common:footerCredit",
@@ -190,9 +190,9 @@ const COMMON_TRANSLATIONS = [
 
 const SERVICE_PAGE_CONTENT = {
   "servicios/manicure.html": {
-    docTitle: "Manicure — FC Luxe & Beauty",
+    docTitle: "Manicure — FC LUXE SPA & BEAUTY",
     metaDesc:
-      "Professional manicure — FC Luxe & Beauty. Perfect nails with long-lasting finishes.",
+      "Professional manicure — FC LUXE SPA & BEAUTY. Perfect nails with long-lasting finishes.",
     heroLabel: "Service 01",
     heroTitleHtml: 'Mani<em class="gold-accent">cure</em>',
     heroSubtitle:
@@ -212,11 +212,11 @@ const SERVICE_PAGE_CONTENT = {
     ],
     ctaTitleHtml: 'Ready for <em class="gold-accent">perfect nails</em>?',
     bookingMessage:
-      "Hello! I'd like to book a manicure appointment at FC Luxe & Beauty.",
+      "Hello! I'd like to book a manicure appointment at FC LUXE SPA & BEAUTY.",
   },
   "servicios/pedicure.html": {
-    docTitle: "Pedicure — FC Luxe & Beauty",
-    metaDesc: "Professional pedicure — FC Luxe & Beauty.",
+    docTitle: "Pedicure — FC LUXE SPA & BEAUTY",
+    metaDesc: "Professional pedicure — FC LUXE SPA & BEAUTY.",
     heroLabel: "Service 02",
     heroTitleHtml: 'Pedi<em class="gold-accent">cure</em>',
     heroSubtitle: "A wellness ritual for your feet that lasts for weeks.",
@@ -235,11 +235,11 @@ const SERVICE_PAGE_CONTENT = {
     ],
     ctaTitleHtml: 'Ready for <em class="gold-accent">perfect feet</em>?',
     bookingMessage:
-      "Hello! I'd like to book a pedicure appointment at FC Luxe & Beauty.",
+      "Hello! I'd like to book a pedicure appointment at FC LUXE SPA & BEAUTY.",
   },
   "servicios/extensiones.html": {
-    docTitle: "Hair Extensions — FC Luxe & Beauty",
-    metaDesc: "Hair extensions — FC Luxe & Beauty.",
+    docTitle: "Hair Extensions — FC LUXE SPA & BEAUTY",
+    metaDesc: "Hair extensions — FC LUXE SPA & BEAUTY.",
     heroLabel: "Service 03",
     heroTitleHtml: 'Hair <em class="gold-accent">Extensions</em>',
     heroSubtitle: "Natural-looking volume, length, and texture in an instant.",
@@ -258,11 +258,11 @@ const SERVICE_PAGE_CONTENT = {
     ],
     ctaTitleHtml: 'Ready for your <em class="gold-accent">dream hair</em>?',
     bookingMessage:
-      "Hello! I'd like to book a hair extensions appointment at FC Luxe & Beauty.",
+      "Hello! I'd like to book a hair extensions appointment at FC LUXE SPA & BEAUTY.",
   },
   "servicios/masajes.html": {
-    docTitle: "Massages — FC Luxe & Beauty",
-    metaDesc: "Therapeutic massages — FC Luxe & Beauty.",
+    docTitle: "Massages — FC LUXE SPA & BEAUTY",
+    metaDesc: "Therapeutic massages — FC LUXE SPA & BEAUTY.",
     heroLabel: "Service 04",
     heroTitleHtml: 'Massa<em class="gold-accent">ges</em>',
     heroSubtitle:
@@ -282,11 +282,11 @@ const SERVICE_PAGE_CONTENT = {
     ],
     ctaTitleHtml: 'A moment of <em class="gold-accent">total peace</em>',
     bookingMessage:
-      "Hello! I'd like to book a massage appointment at FC Luxe & Beauty.",
+      "Hello! I'd like to book a massage appointment at FC LUXE SPA & BEAUTY.",
   },
   "servicios/faciales.html": {
-    docTitle: "Facials — FC Luxe & Beauty",
-    metaDesc: "Premium facials — FC Luxe & Beauty.",
+    docTitle: "Facials — FC LUXE SPA & BEAUTY",
+    metaDesc: "Premium facials — FC LUXE SPA & BEAUTY.",
     heroLabel: "Service 05",
     heroTitleHtml: 'Faci<em class="gold-accent">als</em>',
     heroSubtitle: "Radiant skin with next-generation treatments.",
@@ -305,11 +305,11 @@ const SERVICE_PAGE_CONTENT = {
     ],
     ctaTitleHtml: 'Ready for <em class="gold-accent">radiant skin</em>?',
     bookingMessage:
-      "Hello! I'd like to book a facial appointment at FC Luxe & Beauty.",
+      "Hello! I'd like to book a facial appointment at FC LUXE SPA & BEAUTY.",
   },
   "servicios/alisado.html": {
-    docTitle: "Smoothing — FC Luxe & Beauty",
-    metaDesc: "Professional smoothing — FC Luxe & Beauty.",
+    docTitle: "Smoothing — FC LUXE SPA & BEAUTY",
+    metaDesc: "Professional smoothing — FC LUXE SPA & BEAUTY.",
     heroLabel: "Service 06",
     heroTitleHtml: 'Hair <em class="gold-accent">Smoothing</em>',
     heroSubtitle: "Smooth, shiny hair that protects your hair health.",
@@ -328,11 +328,11 @@ const SERVICE_PAGE_CONTENT = {
     ],
     ctaTitleHtml: 'Ready for <em class="gold-accent">perfect hair</em>?',
     bookingMessage:
-      "Hello! I'd like to book a smoothing appointment at FC Luxe & Beauty.",
+      "Hello! I'd like to book a smoothing appointment at FC LUXE SPA & BEAUTY.",
   },
   "servicios/pestanas.html": {
-    docTitle: "Lash Extensions — FC Luxe & Beauty",
-    metaDesc: "Lash extensions — FC Luxe & Beauty.",
+    docTitle: "Lash Extensions — FC LUXE SPA & BEAUTY",
+    metaDesc: "Lash extensions — FC LUXE SPA & BEAUTY.",
     heroLabel: "Service 07",
     heroTitleHtml: 'Lash <em class="gold-accent">Extensions</em>',
     heroSubtitle: "A gaze that says it all, effortlessly.",
@@ -351,11 +351,11 @@ const SERVICE_PAGE_CONTENT = {
     ],
     ctaTitleHtml: 'An <em class="gold-accent">unforgettable look</em>',
     bookingMessage:
-      "Hello! I'd like to book a lash extensions appointment at FC Luxe & Beauty.",
+      "Hello! I'd like to book a lash extensions appointment at FC LUXE SPA & BEAUTY.",
   },
   "servicios/colorimetria.html": {
-    docTitle: "Hair Color — FC Luxe & Beauty",
-    metaDesc: "Hair color services — FC Luxe & Beauty.",
+    docTitle: "Hair Color — FC LUXE SPA & BEAUTY",
+    metaDesc: "Hair color services — FC LUXE SPA & BEAUTY.",
     heroLabel: "Service 08",
     heroTitleHtml: 'Hair <em class="gold-accent">Color</em>',
     heroSubtitle:
@@ -375,12 +375,12 @@ const SERVICE_PAGE_CONTENT = {
     ],
     ctaTitleHtml: 'Ready for your <em class="gold-accent">new color</em>?',
     bookingMessage:
-      "Hello! I'd like to book a hair color appointment at FC Luxe & Beauty.",
+      "Hello! I'd like to book a hair color appointment at FC LUXE SPA & BEAUTY.",
   },
   "servicios/cejas.html": {
-    docTitle: "Brows — FC Luxe & Beauty",
+    docTitle: "Brows — FC LUXE SPA & BEAUTY",
     metaDesc:
-      "Professional brow design and treatments — FC Luxe & Beauty. Perfect brows that frame your look.",
+      "Professional brow design and treatments — FC LUXE SPA & BEAUTY. Perfect brows that frame your look.",
     heroLabel: "Service 09",
     heroTitleHtml: 'Bro<em class="gold-accent">ws</em>',
     heroSubtitle: "Perfect brows that frame and enhance your look.",
@@ -388,7 +388,7 @@ const SERVICE_PAGE_CONTENT = {
     detailLabel: "Brows",
     detailTitleHtml: "Looks that <em>captivate</em>",
     intro:
-      "Well-designed brows can completely transform the face. At FC Luxe & Beauty we apply threading, lamination, and tinting techniques to create brows that highlight your natural beauty.",
+      "Well-designed brows can completely transform the face. At FC LUXE SPA & BEAUTY we apply threading, lamination, and tinting techniques to create brows that highlight your natural beauty.",
     treatments: [
       "Threading Design & Shaping",
       "Wax Shaping",
@@ -399,7 +399,7 @@ const SERVICE_PAGE_CONTENT = {
     ],
     ctaTitleHtml: 'Ready for <em class="gold-accent">perfect brows</em>?',
     bookingMessage:
-      "Hello! I'd like to book a brow appointment at FC Luxe & Beauty.",
+      "Hello! I'd like to book a brow appointment at FC LUXE SPA & BEAUTY.",
   },
 };
 
@@ -478,11 +478,11 @@ function buildServicePageTranslations(pageKey, content) {
 
 const PAGE_TRANSLATIONS = {
   "index.html": [
-    titleOp("index:title", "FC Luxe & Beauty | Premium Beauty Salon"),
+    titleOp("index:title", "FC LUXE SPA & BEAUTY | Premium Beauty Salon"),
     metaOp(
       "index:meta",
       'meta[name="description"]',
-      "FC Luxe & Beauty — Premium beauty salon. Manicure, hair extensions, massages, facials, lashes, and more.",
+      "FC LUXE SPA & BEAUTY — Premium beauty salon. Manicure, hair extensions, massages, facials, lashes, and more.",
     ),
     attrOp("index:heroAria", ".hero", { "aria-label": "Cover" }),
     htmlOp(
@@ -510,7 +510,7 @@ const PAGE_TRANSLATIONS = {
       "Smoothing",
       "Lashes",
       "Hair Color",
-      "FC Luxe & Beauty",
+      "FC LUXE SPA & BEAUTY",
       "Manicure",
       "Pedicure",
       "Hair Extensions",
@@ -519,7 +519,7 @@ const PAGE_TRANSLATIONS = {
       "Smoothing",
       "Lashes",
       "Hair Color",
-      "FC Luxe & Beauty",
+      "FC LUXE SPA & BEAUTY",
     ]),
     attrOp("index:servicesAria", ".drag-slider", {
       "aria-label": "Our services",
@@ -560,7 +560,7 @@ const PAGE_TRANSLATIONS = {
     textOp(
       "index:aboutText1",
       ".about__text p:nth-of-type(1)",
-      "At FC Luxe & Beauty, we believe every person deserves to feel extraordinary. Our salon is a space where elegance, professional care, and human warmth come together to offer you a one-of-a-kind experience.",
+      "At FC LUXE SPA & BEAUTY, we believe every person deserves to feel extraordinary. Our salon is a space where elegance, professional care, and human warmth come together to offer you a one-of-a-kind experience.",
     ),
     textOp(
       "index:aboutText2",
@@ -626,7 +626,7 @@ const PAGE_TRANSLATIONS = {
     textOp(
       "index:finalCtaText",
       ".cta-section__content p",
-      "Reserve your moment of wellness at FC Luxe & Beauty. We'll be waiting with open arms.",
+      "Reserve your moment of wellness at FC LUXE SPA & BEAUTY. We'll be waiting with open arms.",
     ),
     textOp(
       "index:finalCtaBtn",
@@ -635,7 +635,7 @@ const PAGE_TRANSLATIONS = {
     ),
   ],
   "servicios.html": [
-    titleOp("services:title", "Services — FC Luxe & Beauty"),
+    titleOp("services:title", "Services — FC LUXE SPA & BEAUTY"),
     metaOp(
       "services:meta",
       'meta[name="description"]',
@@ -694,11 +694,11 @@ const PAGE_TRANSLATIONS = {
     textOp("services:ctaButton", ".interior-cta .btn--pink", "Book now"),
   ],
   "historia.html": [
-    titleOp("story:title", "Our Story — FC Luxe & Beauty"),
+    titleOp("story:title", "Our Story — FC LUXE SPA & BEAUTY"),
     metaOp(
       "story:meta",
       'meta[name="description"]',
-      "Our story — FC Luxe & Beauty. Discover who we are and what inspires us.",
+      "Our story — FC LUXE SPA & BEAUTY. Discover who we are and what inspires us.",
     ),
     textOp(
       "story:heroLabel",
@@ -727,7 +727,7 @@ const PAGE_TRANSLATIONS = {
     textOp(
       "story:block1Text1",
       ".historia-grid:nth-of-type(1) p:nth-of-type(1)",
-      "FC Luxe & Beauty was born from the passion for making every person who walks through our door feel extraordinary. What began as a vision became a benchmark beauty salon where luxury and warmth coexist.",
+      "FC LUXE SPA & BEAUTY was born from the passion for making every person who walks through our door feel extraordinary. What began as a vision became a benchmark beauty salon where luxury and warmth coexist.",
     ),
     textOp(
       "story:block1Text2",
@@ -782,11 +782,11 @@ const PAGE_TRANSLATIONS = {
     textOp("story:ctaButton", ".interior-cta .btn--pink", "Book now"),
   ],
   "galeria.html": [
-    titleOp("gallery:title", "Gallery — FC Luxe & Beauty"),
+    titleOp("gallery:title", "Gallery — FC LUXE SPA & BEAUTY"),
     metaOp(
       "gallery:meta",
       'meta[name="description"]',
-      "FC Luxe & Beauty gallery — Explore our work and results.",
+      "FC LUXE SPA & BEAUTY gallery — Explore our work and results.",
     ),
     textOp(
       "gallery:heroLabel",
@@ -826,11 +826,11 @@ const PAGE_TRANSLATIONS = {
     textOp("gallery:ctaButton", ".interior-cta .btn--pink", "Book now"),
   ],
   "contacto.html": [
-    titleOp("contact:title", "Contact — FC Luxe & Beauty"),
+    titleOp("contact:title", "Contact — FC LUXE SPA & BEAUTY"),
     metaOp(
       "contact:meta",
       'meta[name="description"]',
-      "Contact FC Luxe & Beauty in Bahía de Banderas, Nayarit, México. Book your appointment via WhatsApp.",
+      "Contact FC LUXE SPA & BEAUTY in Bahía de Banderas, Nayarit, México. Book your appointment via WhatsApp.",
     ),
     textOp(
       "contact:heroLabel",
@@ -870,8 +870,8 @@ const PAGE_TRANSLATIONS = {
       "Valle de Arce #143, Suite 4<br />Col. Valle Dorado, Bahía de Banderas, Nayarit",
     ),
     attrOp("contact:mapAttrs", ".contacto-map iframe", {
-      title: "FC Luxe & Beauty location",
-      "aria-label": "FC Luxe & Beauty location map",
+      title: "FC LUXE SPA & BEAUTY location",
+      "aria-label": "FC LUXE SPA & BEAUTY location map",
     }),
     textOp(
       "contact:stripEyebrow",
@@ -1128,19 +1128,19 @@ function getEnglishWhatsAppMessage(pageKey) {
   }
 
   const genericMessages = {
-    "index.html": "Hello! I'd like to book an appointment at FC Luxe & Beauty.",
-    "servicios.html": "Hello! I'd like to book a service at FC Luxe & Beauty.",
+    "index.html": "Hello! I'd like to book an appointment at FC LUXE SPA & BEAUTY.",
+    "servicios.html": "Hello! I'd like to book a service at FC LUXE SPA & BEAUTY.",
     "historia.html":
-      "Hello! I'd like to book an appointment at FC Luxe & Beauty.",
+      "Hello! I'd like to book an appointment at FC LUXE SPA & BEAUTY.",
     "galeria.html":
-      "Hello! I'd like to book an appointment at FC Luxe & Beauty.",
+      "Hello! I'd like to book an appointment at FC LUXE SPA & BEAUTY.",
     "contacto.html":
-      "Hello! I'd like to book an appointment at FC Luxe & Beauty.",
+      "Hello! I'd like to book an appointment at FC LUXE SPA & BEAUTY.",
   };
 
   return (
     genericMessages[pageKey] ||
-    "Hello! I'd like to book an appointment at FC Luxe & Beauty."
+    "Hello! I'd like to book an appointment at FC LUXE SPA & BEAUTY."
   );
 }
 

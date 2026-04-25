@@ -1,6 +1,6 @@
-# FC Luxe & Beauty — Sitio Web
+# FC LUXE SPA & BEAUTY — Sitio Web
 
-Sitio web estático de alta gama para **FC Luxe & Beauty**, salón de belleza ubicado en Valle de Arce #143, Local 4, Col. Valle Dorado, Bahía de Banderas, Nayarit.
+Sitio web estático de alta gama para **FC LUXE SPA & BEAUTY**, salón de belleza ubicado en Valle de Arce #143, Local 4, Col. Valle Dorado, Bahía de Banderas, Nayarit.
 
 ---
 

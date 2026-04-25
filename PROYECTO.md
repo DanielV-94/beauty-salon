@@ -1,4 +1,4 @@
-# FC Luxe & Beauty — Resumen del Proyecto
+# FC LUXE SPA & BEAUTY — Resumen del Proyecto
 
 > Documento técnico-creativo de referencia para el equipo de desarrollo y diseño.
 
@@ -6,7 +6,7 @@
 
 ## 1. Identidad del proyecto
 
-**Cliente:** FC Luxe & Beauty  
+**Cliente:** FC LUXE SPA & BEAUTY  
 **Tipo:** Salón de belleza premium  
 **Ubicación:** Valle de Arce #143, Local 4, Col. Valle Dorado, Bahía de Banderas, Nayarit  
 **Contacto:** +52 322 202 4062 · cergal.air30@gmail.com  

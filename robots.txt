@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.fcluxe-spabeauty.com/sitemap.xml
+Host: www.fcluxe-spabeauty.com
